@@ -47,7 +47,7 @@ const TheNavBar = () => {
         </ul>
 
         {/* Mobile version */}
-        {isOpen ? (
+        {isOpen && (
           <ul className="md:hidden absolute bg-white w-full top-[6rem] left-0 right-0 flex flex-col justify-center items-end px-3 sm:px-10 pb-4 space-y-5">
             <li>
               <NavLink to={"/"}>Home</NavLink>
@@ -66,8 +66,6 @@ const TheNavBar = () => {
               </button>
             </li>
           </ul>
-        ) : (
-          ""
         )}
       </header>
     </nav>
