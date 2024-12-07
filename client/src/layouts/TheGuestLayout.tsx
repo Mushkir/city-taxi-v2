@@ -1,19 +1,19 @@
 import React from "react";
 import TheNavBar from "../components/TheNavBar";
 import { Outlet } from "react-router";
-import TheFooter from "../components/home/TheFooter";
+import TheFooter from "../components/TheFooter";
 
 const TheGuestLayout = () => {
   return (
     <div>
       <TheNavBar />
-      <main>
+      <main className="min-h-screen">
         <Outlet />
       </main>
 
-      {/* <footer>
+      <footer>
         <TheFooter />
-      </footer> */}
+      </footer>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 const TheFooterSection = () => {
   return (
-    <div className="mb-4 py-10 px-2 sm:px-20 bg-gray-950 flex justify-between w-full">
+    <div className="py-10 px-2 sm:px-20 bg-gray-950 flex justify-between w-full">
       <div className=" w-[33%]">
         <h3 className=" text-white font-semibold text-2xl">
           About City<span className=" text-yellow-500">Taxi</span>
