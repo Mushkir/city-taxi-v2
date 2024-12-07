@@ -4,7 +4,7 @@ import { GiTrophyCup } from "react-icons/gi";
 
 const TheServiceSection = () => {
   return (
-    <div className=" mb-4 container mx-auto py-10 px-2 sm:px-10">
+    <div className="container mx-auto py-10 px-2 sm:px-10">
       <h3 className=" text-2xl font-semibold text-center mt-10">
         We do best than you wish
       </h3>

@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const TheHeroSection = () => {
   return (
-    <div>
+    <div className="">
       <h3 className="text-yellow-500 uppercase font-semibold text-lg md:text-3xl">
         Book your taxi now
       </h3>

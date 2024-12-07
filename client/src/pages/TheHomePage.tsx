@@ -3,6 +3,7 @@ import TheReactHelmet from "../components/TheReactHelmet";
 import TheHeroSection from "../components/home/TheHeroSection";
 import TheIntroSection from "../components/home/TheIntroSection";
 import TheServiceSection from "../components/home/TheServiceSection";
+import TheContactSection from "../components/home/TheContactSection";
 
 const TheHomePage = () => {
   return (
@@ -15,6 +16,8 @@ const TheHomePage = () => {
       <TheIntroSection />
 
       <TheServiceSection />
+
+      <TheContactSection />
     </div>
   );
 };
