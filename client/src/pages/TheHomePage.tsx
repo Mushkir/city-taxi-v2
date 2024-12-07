@@ -1,11 +1,13 @@
 import React from "react";
 import TheReactHelmet from "../components/TheReactHelmet";
+import TheHeroSection from "../components/home/TheHeroSection";
 
 const TheHomePage = () => {
   return (
-    <div className="mt-[6rem] min-h-screen bg-yellow-500">
+    <div className="mt-[6rem] background-gradient-image w-full min-h-[80vh] flex justify-center items-center">
       <TheReactHelmet title={"City Taxi"} />
-      <h1>Welcome to City Taxi</h1>
+
+      <TheHeroSection />
     </div>
   );
 };

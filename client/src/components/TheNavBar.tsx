@@ -32,7 +32,7 @@ const TheNavBar = () => {
             <NavLink to={"/"}>Home</NavLink>
           </li>
           <li>
-            <Link to={"drivers"}>Pick a Driver</Link>
+            <NavLink to={"drivers"}>Pick a Driver</NavLink>
           </li>
           <li>
             <button className="border bg-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all">
@@ -53,7 +53,7 @@ const TheNavBar = () => {
               <NavLink to={"/"}>Home</NavLink>
             </li>
             <li>
-              <Link to={"drivers"}>Pick a Driver</Link>
+              <NavLink to={"drivers"}>Pick a Driver</NavLink>
             </li>
             <li>
               <button className="border bg-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all">

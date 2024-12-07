@@ -15,3 +15,11 @@ nav ul li:hover {
 nav ul a.active {
   @apply text-yellow-600 font-semibold;
 }
+
+.background-gradient-image {
+  background: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url(./assets//img/taxi-background.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
