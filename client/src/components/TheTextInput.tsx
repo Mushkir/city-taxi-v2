@@ -1,12 +1,14 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 
 interface TheTextInputProps {
   label: string;
   id: string;
   placeholder: string;
   required?: boolean;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void; // Type for the onChange function
+  register: any;
+  errors?: { message?: string };
+  // value: string;
+  // onChange: (e: ChangeEvent<HTMLInputElement>) => void; // Type for the onChange function
 }
 
 const TheTextInput: React.FC<TheTextInputProps> = ({
@@ -14,8 +16,8 @@ const TheTextInput: React.FC<TheTextInputProps> = ({
   id,
   placeholder,
   required = false,
-  value,
-  onChange,
+  register,
+  errors,
 }) => {
   return (
     <div className="flex flex-col gap-1.5 mb-4">
@@ -27,12 +29,16 @@ const TheTextInput: React.FC<TheTextInputProps> = ({
       <input
         type="text"
         name={id}
+        id={id}
         className="bg-slate-200 p-2 rounded w-full"
         placeholder={placeholder}
-        onChange={onChange} // Ensure this matches the prop
-        required={required}
-        value={value}
+        {...register}
       />
+      {errors && (
+        <span className="text-sm text-red-600 font-semibold">
+          {errors.message}
+        </span>
+      )}
     </div>
   );
 };
