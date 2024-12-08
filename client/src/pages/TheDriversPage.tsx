@@ -1,7 +1,8 @@
 import React from "react";
+import TheReactHelmet from "../components/TheReactHelmet";
 
 const TheDriversPage = () => {
-  return <div className="mt-[6rem]">TheDriversPage</div>;
+  return <div className="pt-[6rem]">TheDriversPage</div>;
 };
 
 export default TheDriversPage;
