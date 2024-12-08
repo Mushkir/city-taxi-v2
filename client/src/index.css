@@ -24,3 +24,7 @@ nav ul a.active {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+#registerContainer a.active {
+  @apply bg-gray-900 rounded text-yellow-500 font-semibold;
+}

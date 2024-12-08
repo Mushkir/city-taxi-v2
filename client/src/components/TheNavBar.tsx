@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { IoMdMenu } from "react-icons/io";
 import { MdOutlineClose } from "react-icons/md";
 
 const TheNavBar = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenNavMenu = () => {
@@ -40,7 +41,12 @@ const TheNavBar = () => {
             </button>
           </li>
           <li>
-            <button className=" border border-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all">
+            <button
+              onClick={() => {
+                navigate("/register/driver");
+              }}
+              className=" border border-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all"
+            >
               Register
             </button>
           </li>
