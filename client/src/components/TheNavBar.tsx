@@ -12,7 +12,7 @@ const TheNavBar = () => {
   };
 
   return (
-    <nav className="bg-white mx-auto fixed top-0 left-0 right-0 w-full">
+    <nav className="bg-white mx-auto fixed top-0 left-0 right-0 w-full z-40">
       <header className="flex items-center justify-between px-2 sm:px-10 lg:px-20 py-5 relative">
         <Link
           to={"/"}

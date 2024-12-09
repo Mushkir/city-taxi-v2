@@ -3,6 +3,7 @@ import React from "react";
 interface TheTextInputProps {
   label: string;
   id: string;
+  type?: string;
   placeholder: string;
   required?: boolean;
   register: any;
@@ -14,20 +15,21 @@ interface TheTextInputProps {
 const TheTextInput: React.FC<TheTextInputProps> = ({
   label,
   id,
+  type = "text",
   placeholder,
   required = false,
   register,
   errors,
 }) => {
   return (
-    <div className="flex flex-col gap-1.5 mb-4">
+    <div className="flex w-full flex-col gap-1.5 mb-4">
       <label htmlFor={id} className="font-semibold">
         {label}
         {required && <span className="text-red-500">*</span>}
       </label>
 
       <input
-        type="text"
+        type={type}
         name={id}
         id={id}
         className="bg-slate-200 p-2 rounded w-full"
