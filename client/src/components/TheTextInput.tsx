@@ -23,7 +23,7 @@ const TheTextInput: React.FC<TheTextInputProps> = ({
 }) => {
   return (
     <div className="flex w-full flex-col gap-1.5 mb-4">
-      <label htmlFor={id} className="font-semibold">
+      <label htmlFor={id} className="font-semibold capitalize">
         {label}
         {required && <span className="text-red-500">*</span>}
       </label>

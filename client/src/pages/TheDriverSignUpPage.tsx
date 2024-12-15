@@ -37,8 +37,8 @@ const TheDriverSignUpPage = () => {
 
       username: z
         .string()
-        .min(3, { message: "Name must be at least 3 characters" })
-        .max(20, { message: "Name must be within 20 characters" }),
+        .min(3, { message: "Username must be at least 3 characters" })
+        .max(20, { message: "Username must be within 20 characters" }),
 
       password: z
         .string()
