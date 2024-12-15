@@ -8,8 +8,7 @@ interface TheTextInputProps {
   required?: boolean;
   register: any;
   errors?: { message?: string };
-  // value: string;
-  // onChange: (e: ChangeEvent<HTMLInputElement>) => void; // Type for the onChange function
+  labelTextColor?: string;
 }
 
 const TheTextInput: React.FC<TheTextInputProps> = ({
@@ -20,10 +19,16 @@ const TheTextInput: React.FC<TheTextInputProps> = ({
   required = false,
   register,
   errors,
+  labelTextColor,
 }) => {
   return (
     <div className="flex w-full flex-col gap-1.5 mb-4">
-      <label htmlFor={id} className="font-semibold capitalize">
+      <label
+        htmlFor={id}
+        className={`font-semibold capitalize ${
+          labelTextColor ? labelTextColor : "text-black"
+        }`}
+      >
         {label}
         {required && <span className="text-red-500">*</span>}
       </label>

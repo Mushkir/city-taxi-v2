@@ -28,3 +28,11 @@ nav ul a.active {
 #registerContainer a.active {
   @apply bg-gray-900 rounded text-yellow-500 font-semibold;
 }
+
+.login-background-gradient-image {
+  background: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url(./assets/img/taxi-login-page-bg.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

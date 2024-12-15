@@ -7,6 +7,7 @@ interface ThePasswordInputProps {
   required?: boolean;
   placeholder: string;
   register: any;
+  labelTextColor?: string;
   errors?: { message?: string };
 }
 
@@ -17,6 +18,7 @@ const ThePasswordInput: FunctionComponent<ThePasswordInputProps> = ({
   placeholder,
   register,
   errors,
+  labelTextColor,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -26,13 +28,18 @@ const ThePasswordInput: FunctionComponent<ThePasswordInputProps> = ({
 
   return (
     <div className="flex w-full flex-col gap-1.5 mb-4">
-      <label htmlFor={id} className="font-semibold">
+      <label
+        htmlFor={id}
+        className={`font-semibold ${
+          labelTextColor ? labelTextColor : "text-black"
+        }`}
+      >
         {label}
         {required && <span className="text-red-500">*</span>}
         {/* <span className="text-red-500">*</span> */}
       </label>
 
-      <div className="bg-slate-200 rounded w-full flex items-center">
+      <div className="bg-slate-200 rounded w-full overflow-hidden flex items-center">
         <input
           type={showPassword ? "text" : "password"}
           className=" w-full bg-slate-200 outline-none p-2"
