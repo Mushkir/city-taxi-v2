@@ -7,9 +7,9 @@ const TheRegisterLayout = () => {
   return (
     <div>
       <TheNavBar />
-      <main className="min-h-screen pt-[7rem]">
+      <main className="min-h-screen pt-[7rem] p-2">
         <div
-          className=" w-full text-lg text-gray-900 max-w-lg mx-auto mt-7 flex justify-center items-center bg-gray-300 rounded overflow-hidden"
+          className=" w-full text-lg text-gray-900 max-w-lg mx-auto mt-7 flex justify-center items-center bg-gray-300 rounded-full sm:rounded overflow-hidden"
           id="registerContainer"
         >
           {/* Driver */}

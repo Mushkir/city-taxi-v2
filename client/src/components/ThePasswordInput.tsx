@@ -51,8 +51,8 @@ const ThePasswordInput: FunctionComponent<ThePasswordInputProps> = ({
         </div>
       </div>
       {errors && (
-        <span className="text-sm text-red-600 font-semibold">
-          {errors.message}
+        <span className="text-[0.7rem] sm:text-sm text-red-600 font-semibold">
+          {errors.message}.
         </span>
       )}
     </div>

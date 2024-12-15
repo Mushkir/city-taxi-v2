@@ -1,23 +1,17 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
-interface TheTextInputProps {
-  label: string;
+interface TheTimeInputProps {
   id: string;
-  type?: string;
-  placeholder: string;
-  required?: boolean;
+  label: string;
+  required: boolean;
   register: any;
   errors?: { message?: string };
-  // value: string;
-  // onChange: (e: ChangeEvent<HTMLInputElement>) => void; // Type for the onChange function
 }
 
-const TheTextInput: React.FC<TheTextInputProps> = ({
-  label,
+const TheTimeInput: FunctionComponent<TheTimeInputProps> = ({
   id,
-  type = "text",
-  placeholder,
-  required = false,
+  label,
+  required,
   register,
   errors,
 }) => {
@@ -29,11 +23,10 @@ const TheTextInput: React.FC<TheTextInputProps> = ({
       </label>
 
       <input
-        type={type}
+        type="time"
         name={id}
         id={id}
         className="bg-slate-200 p-2 rounded w-full"
-        placeholder={placeholder}
         {...register}
       />
       {errors && (
@@ -45,4 +38,4 @@ const TheTextInput: React.FC<TheTextInputProps> = ({
   );
 };
 
-export default TheTextInput;
+export default TheTimeInput;

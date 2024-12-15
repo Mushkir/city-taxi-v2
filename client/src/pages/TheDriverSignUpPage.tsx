@@ -5,6 +5,7 @@ import TheTextInput from "../components/TheTextInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ThePasswordInput from "../components/ThePasswordInput";
+import TheTimeInput from "../components/TheTimeInput";
 
 const TheDriverSignUpPage = () => {
   const signUpSchema = z
@@ -51,6 +52,18 @@ const TheDriverSignUpPage = () => {
         .string()
         .min(5, { message: "Country must be at least 03 characters" })
         .max(20, { message: "Country must be within 20 characters" }),
+
+      taxiNumber: z
+        .string()
+        .min(3, { message: "Number plate must be at least 03 characters" }),
+
+      idCardNo: z
+        .string()
+        .min(12, { message: "ID card number must be 12 characters" })
+        .max(12, { message: "ID card number must be 12 characters" }),
+
+      availableTime: z.date(),
+      finishingTime: z.date(),
     })
     .refine((data) => data.password === data.confirmPassword, {
       path: ["confirmPassword"],
@@ -69,6 +82,10 @@ const TheDriverSignUpPage = () => {
     addressLine: string;
     city: string;
     country: string;
+    taxiNumber: string;
+    idCardNo: string;
+    availableTime: any;
+    finishingTime: any;
   };
 
   // React Hook Form setup
@@ -90,7 +107,7 @@ const TheDriverSignUpPage = () => {
       {/* Page metadata */}
       <TheReactHelmet title="Sign-Up | Driver" />
 
-      <div className="p-5">
+      <div className="p-2 sm:p-5">
         <h3 className="text-gray-900 text-xl font-semibold my-8 text-center">
           Join with Us &{" "}
           <span className="text-yellow-500 bg-gray-900 px-4 py-2 rounded">
@@ -99,7 +116,7 @@ const TheDriverSignUpPage = () => {
         </h3>
 
         {/* Profile Img */}
-        <div className="w-full max-w-[10rem] h-[10rem] rounded-full bg-yellow-500 mx-auto p-[0.2rem] mb-5 relative overflow-hidden">
+        <div className="max-w-[5rem] h-[5rem] sm:max-w-[10rem] sm:h-[10rem] rounded-full bg-yellow-500 mx-auto p-[0.2rem] mb-5 relative overflow-hidden">
           <img
             className="w-full h-full object-cover rounded-full"
             src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
@@ -113,10 +130,10 @@ const TheDriverSignUpPage = () => {
 
         <form
           method="post"
-          className="bg-white p-7 rounded-md w-full max-w-[74rem] mx-auto mb-8"
+          className="bg-white p-2 sm:p-7 rounded-md w-full max-w-[74rem] mx-auto mb-8"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className=" flex justify-between gap-10 mb-4">
+          <div className="sm:flex justify-between gap-10 mb-4">
             {/* Name Input */}
             <TheTextInput
               label="Name"
@@ -151,7 +168,7 @@ const TheDriverSignUpPage = () => {
           </div>
 
           {/* Second row */}
-          <div className=" flex justify-between gap-10 mb-4">
+          <div className="sm:flex justify-between gap-10 mb-4">
             <TheTextInput
               label="Username"
               type="text"
@@ -179,10 +196,19 @@ const TheDriverSignUpPage = () => {
               register={register("confirmPassword")}
               errors={errors.confirmPassword}
             />
+
+            <TheTextInput
+              label="Taxi Number"
+              required
+              id="taxiNumber"
+              placeholder="Ex: EP CAD - 9699"
+              register={register("taxiNumber")}
+              errors={errors.taxiNumber}
+            />
           </div>
 
           {/* Third row */}
-          <div className=" flex items-center gap-10 mb-4">
+          <div className="sm:flex items-center gap-10 mb-4">
             <TheTextInput
               label="Address Line 1"
               id="addressLine"
@@ -212,12 +238,45 @@ const TheDriverSignUpPage = () => {
           </div>
 
           {/* Fourth row */}
-          <div></div>
+          <div className=" flex gap-5">
+            <TheTextInput
+              label="ID Card No."
+              required
+              id="idCardNo"
+              placeholder="Enter your ID card number"
+              register={register("idCardNo")}
+              errors={errors.idCardNo}
+            />
+
+            <div className="mt-2 w-full">
+              <label className="font-semibold">
+                Available Time Period<span className="text-red-500">*</span>
+              </label>
+              <div className=" flex items-center gap-5 mt-1">
+                <TheTimeInput
+                  id="availableTime"
+                  label="From"
+                  required
+                  register={register("availableTime")}
+                  errors={errors.availableTime}
+                />
+
+                {/* Finishing time */}
+                <TheTimeInput
+                  id="finishingTime"
+                  label="To"
+                  required
+                  register={register("finishingTime")}
+                  errors={errors.finishingTime}
+                />
+              </div>
+            </div>
+          </div>
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="bg-yellow-600 text-white px-4 py-2 rounded mt-4"
+            className="bg-yellow-600 px-4 py-2 rounded mt-4 w-full sm:max-w-[10rem] hover:bg-yellow-700 transition-all border border-black text-black font-semibold"
           >
             Submit
           </button>
