@@ -7,12 +7,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ThePasswordInput from "../components/ThePasswordInput";
 import TheTimeInput from "../components/TheTimeInput";
 import uploadImage from "../utils/cloudinaryImageUpload";
+import apiEndPoint from "../common/apiEndPoint";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const TheDriverSignUpPage = () => {
   const inputRef = useRef(null);
 
   const [image, setImage] = useState("");
   const [showProfileImgError, setShowProfileImgError] = useState(false);
+
+  const navigate = useNavigate();
 
   const signUpSchema = z
     .object({
@@ -47,7 +52,7 @@ const TheDriverSignUpPage = () => {
       addressLine: z
         .string()
         .min(5, { message: "Address Line must be at least 05 characters" })
-        .max(20, { message: "Address Line must be within 20 characters" }),
+        .max(50, { message: "Address Line must be within 50 characters" }),
 
       city: z
         .string()
@@ -121,19 +126,40 @@ const TheDriverSignUpPage = () => {
   });
 
   // Handle form submission
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (!image) {
       setShowProfileImgError(true);
       setTimeout(() => {
         setShowProfileImgError(false);
       }, 5000);
-
       return;
     }
-
     const formData = { ...data, profileImage: image };
+    try {
+      const response = await fetch(apiEndPoint.driverSignUp.url, {
+        method: apiEndPoint.driverSignUp.method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const respData = await response.json();
 
-    console.log(formData);
+      if (respData?.status === 400) {
+        toast.error(respData?.message);
+      }
+      if (!respData.error && respData?.status === 201) {
+        navigate("/login");
+        toast.success(respData?.message);
+      }
+      // console.log(respData);
+      // console.log(formData);
+    } catch (error) {
+      toast.error(
+        "An error occured! Currently unable to proceed signup process..."
+      );
+      console.error(error);
+    }
   };
 
   return (

@@ -36,7 +36,10 @@ const TheNavBar = () => {
             <NavLink to={"drivers"}>Pick a Driver</NavLink>
           </li>
           <li>
-            <button className="border bg-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all">
+            <button
+              onClick={() => navigate("/login")}
+              className="border bg-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all"
+            >
               Login
             </button>
           </li>

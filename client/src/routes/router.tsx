@@ -6,6 +6,7 @@ import TheDriversPage from "../pages/TheDriversPage";
 import TheRegisterLayout from "../layouts/TheRegisterLayout";
 import TheDriverSignUpPage from "../pages/TheDriverSignUpPage";
 import ThePassengerSignUpPage from "../pages/ThePassengerSignUpPage";
+import TheLoginPage from "../pages/TheLoginPage";
 
 const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ const AppRouter = () => {
       <Route element={<TheGuestLayout />}>
         <Route path="/" element={<TheHomePage />} />
         <Route path="/drivers" element={<TheDriversPage />} />
+        <Route path="/login" element={<TheLoginPage />} />
       </Route>
 
       <Route path="register" element={<TheRegisterLayout />}>

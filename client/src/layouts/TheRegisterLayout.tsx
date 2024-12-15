@@ -2,6 +2,8 @@ import React from "react";
 import TheNavBar from "../components/TheNavBar";
 import TheFooter from "../components/TheFooter";
 import { NavLink, Outlet } from "react-router";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TheRegisterLayout = () => {
   return (
@@ -25,10 +27,11 @@ const TheRegisterLayout = () => {
 
         <Outlet />
       </main>
-
       <footer>
         <TheFooter />
       </footer>
+
+      <ToastContainer />
     </div>
   );
 };
