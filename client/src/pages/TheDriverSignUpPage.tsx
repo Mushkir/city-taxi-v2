@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import TheReactHelmet from "../components/TheReactHelmet";
 import TheTextInput from "../components/TheTextInput";
@@ -8,6 +8,8 @@ import ThePasswordInput from "../components/ThePasswordInput";
 import TheTimeInput from "../components/TheTimeInput";
 
 const TheDriverSignUpPage = () => {
+  const inputRef = useRef(null);
+
   const signUpSchema = z
     .object({
       name: z
@@ -62,8 +64,8 @@ const TheDriverSignUpPage = () => {
         .min(12, { message: "ID card number must be 12 characters" })
         .max(12, { message: "ID card number must be 12 characters" }),
 
-      availableTime: z.date(),
-      finishingTime: z.date(),
+      availableTime: z.string().min(1, { message: "This field is required" }),
+      finishingTime: z.string().min(1, { message: "This field is required" }),
     })
     .refine((data) => data.password === data.confirmPassword, {
       path: ["confirmPassword"],
@@ -84,8 +86,21 @@ const TheDriverSignUpPage = () => {
     country: string;
     taxiNumber: string;
     idCardNo: string;
-    availableTime: any;
-    finishingTime: any;
+    availableTime: string;
+    finishingTime: string;
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.dir(e.target.files[0]);
+
+    const imgFile = e.target.files[0];
+  };
+
+  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!inputRef || !inputRef.current) return;
+
+    inputRef.current?.click();
   };
 
   // React Hook Form setup
@@ -123,7 +138,10 @@ const TheDriverSignUpPage = () => {
             alt=""
           />
 
-          <span className=" bg-slate-300 bg-opacity-60 p-2 absolute w-full text-center top-[6.5rem] pb-6 pt-2 cursor-pointer opacity-0 hover:opacity-100 transition-all">
+          <span
+            onClick={handleButtonClick}
+            className=" bg-slate-300 bg-opacity-60 p-2 absolute w-full text-center top-[6.5rem] pb-6 pt-2 cursor-pointer opacity-0 hover:opacity-100 transition-all"
+          >
             Upload profile
           </span>
         </div>
@@ -272,6 +290,13 @@ const TheDriverSignUpPage = () => {
               </div>
             </div>
           </div>
+
+          <input
+            type="file"
+            onChange={(e) => handleFileUpload(e)}
+            ref={inputRef}
+            className="hidden"
+          />
 
           {/* Submit Button */}
           <button
