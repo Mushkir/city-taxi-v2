@@ -6,9 +6,13 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ThePasswordInput from "../components/ThePasswordInput";
 import TheTimeInput from "../components/TheTimeInput";
+import uploadImage from "../utils/cloudinaryImageUpload";
 
 const TheDriverSignUpPage = () => {
   const inputRef = useRef(null);
+
+  const [image, setImage] = useState("");
+  const [showProfileImgError, setShowProfileImgError] = useState(false);
 
   const signUpSchema = z
     .object({
@@ -90,10 +94,14 @@ const TheDriverSignUpPage = () => {
     finishingTime: string;
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.dir(e.target.files[0]);
 
     const imgFile = e.target.files[0];
+
+    const imgResults = await uploadImage(imgFile);
+    setImage(imgResults?.secure_url);
+    // console.log(imgResults?.secure_url);
   };
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -114,7 +122,18 @@ const TheDriverSignUpPage = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    if (!image) {
+      setShowProfileImgError(true);
+      setTimeout(() => {
+        setShowProfileImgError(false);
+      }, 5000);
+
+      return;
+    }
+
+    const formData = { ...data, profileImage: image };
+
+    console.log(formData);
   };
 
   return (
@@ -134,8 +153,11 @@ const TheDriverSignUpPage = () => {
         <div className="max-w-[5rem] h-[5rem] sm:max-w-[10rem] sm:h-[10rem] rounded-full bg-yellow-500 mx-auto p-[0.2rem] mb-5 relative overflow-hidden">
           <img
             className="w-full h-full object-cover rounded-full"
-            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
-            alt=""
+            src={
+              image ||
+              "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
+            }
+            alt="Driver's image"
           />
 
           <span
@@ -145,6 +167,11 @@ const TheDriverSignUpPage = () => {
             Upload profile
           </span>
         </div>
+        {showProfileImgError && (
+          <small className="text-red-500 block text-center -mt-2 mb-3">
+            Please upload your profile image.
+          </small>
+        )}
 
         <form
           method="post"
