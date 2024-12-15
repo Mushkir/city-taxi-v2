@@ -10,6 +10,7 @@ import uploadImage from "../utils/cloudinaryImageUpload";
 import apiEndPoint from "../common/apiEndPoint";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import TheProfileImageView from "../components/TheProfileImageView";
 
 const TheDriverSignUpPage = () => {
   const inputRef = useRef(null);
@@ -177,14 +178,7 @@ const TheDriverSignUpPage = () => {
 
         {/* Profile Img */}
         <div className="max-w-[5rem] h-[5rem] sm:max-w-[10rem] sm:h-[10rem] rounded-full bg-yellow-500 mx-auto p-[0.2rem] mb-5 relative overflow-hidden">
-          <img
-            className="w-full h-full object-cover rounded-full"
-            src={
-              image ||
-              "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
-            }
-            alt="Driver's image"
-          />
+          <TheProfileImageView image={image} />
 
           <span
             onClick={handleButtonClick}

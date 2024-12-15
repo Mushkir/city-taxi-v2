@@ -5,6 +5,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/driver/register`,
     method: "POST",
   },
+  passengerSignUp: {
+    url: `${API_URI}/api/passenger/register`,
+    method: "POST",
+  },
 };
 
 export default apiEndPoint;

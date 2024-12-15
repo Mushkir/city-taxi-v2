@@ -5,4 +5,5 @@ const driverRouter = express.Router();
 
 driverRouter.post("/register", CreateDriver);
 
+
 export default driverRouter;

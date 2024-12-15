@@ -5,8 +5,14 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ThePasswordInput from "../components/ThePasswordInput";
+import TheProfileImageView from "../components/TheProfileImageView";
+import uploadImage from "../utils/cloudinaryImageUpload";
+import { toast } from "react-toastify";
+import apiEndPoint from "../common/apiEndPoint";
+import { useNavigate } from "react-router";
 
 const ThePassengerSignUpPage = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState("");
   const [showProfileImgError, setShowProfileImgError] = useState(false);
 
@@ -76,10 +82,12 @@ const ThePassengerSignUpPage = () => {
     resolver: zodResolver(passengerSchema),
   });
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFiles = e.target.files[0];
 
-    console.log(imageFiles);
+    const passengerImg = await uploadImage(imageFiles);
+    setImage(passengerImg.secure_url);
+    // console.log(passengerImg);
   };
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -90,8 +98,46 @@ const ThePassengerSignUpPage = () => {
     inputRef.current?.click();
   };
 
-  const onSubmit: SubmitHandler<passengerSchemaType> = (data) => {
-    console.log(data);
+  // Sign-up function
+  const onSubmit: SubmitHandler<passengerSchemaType> = async (data) => {
+    if (!image) {
+      setShowProfileImgError(true);
+      toast.error("Please upload your profile picture.");
+
+      setTimeout(() => {
+        setShowProfileImgError(false);
+      }, 5000);
+      return;
+    }
+
+    const formData = { ...data, profileImg: image };
+    // console.log(formData);
+
+    try {
+      const response = await fetch(apiEndPoint.passengerSignUp.url, {
+        method: apiEndPoint.passengerSignUp.method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const respData = await response.json();
+
+      if (respData?.status === 400) {
+        toast.error(respData?.message);
+      }
+
+      if (respData?.status === 201 && !respData?.error) {
+        toast.success("Account created successfully!");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      }
+      // console.log(respData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -108,14 +154,7 @@ const ThePassengerSignUpPage = () => {
 
         {/* Profile Img */}
         <div className="max-w-[5rem] h-[5rem] sm:max-w-[10rem] sm:h-[10rem] rounded-full bg-yellow-500 mx-auto p-[0.2rem] mb-5 relative overflow-hidden">
-          <img
-            className="w-full h-full object-cover rounded-full"
-            src={
-              image ||
-              "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg"
-            }
-            alt="Driver's image"
-          />
+          <TheProfileImageView image={image} />
 
           <span
             onClick={handleButtonClick}
