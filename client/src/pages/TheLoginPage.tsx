@@ -10,9 +10,13 @@ import apiEndPoint from "../common/apiEndPoint";
 import TheSelectInput from "../components/TheSelectInput";
 import role from "../utils/userRole";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../redux/user/userSlice";
 
 const TheLoginPage = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   // Zod validation
   const loginSchema = z.object({
     email: z
@@ -66,7 +70,8 @@ const TheLoginPage = () => {
         }
 
         if (role === "passenger") {
-          navigate("/passenger-dashboard");
+          dispatch(userLogin(respData?.userData));
+          // navigate("/passenger-dashboard");
         }
       }
       console.log(respData);
