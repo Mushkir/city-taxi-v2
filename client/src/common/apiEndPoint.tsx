@@ -9,6 +9,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/passenger/register`,
     method: "POST",
   },
+  login: {
+    url: `${API_URI}/api/user/login`,
+    method: "POST",
+  },
 };
 
 export default apiEndPoint;
