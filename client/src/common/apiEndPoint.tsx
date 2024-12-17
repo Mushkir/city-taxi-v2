@@ -17,6 +17,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/user/logout`,
     method: "GET",
   },
+  getAllDrivers: {
+    url: `${API_URI}/api/driver/show-all-drivers`,
+    method: "GET",
+  },
 };
 
 export default apiEndPoint;

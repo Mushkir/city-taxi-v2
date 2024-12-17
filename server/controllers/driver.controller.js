@@ -80,3 +80,21 @@ export const CreateDriver = async (req, res) => {
     res.status(500).json({ error: true, message: error?.message || "Error" });
   }
 };
+
+// GET Method
+// Get all drivers detail
+export const ReadDriver = async (req, res) => {
+  try {
+    const availableDrivers = await Driver.find()
+      .where("availabilityStatus")
+      .equals(true);
+
+    return res.status(200).json({
+      status: 200,
+      error: false,
+      data: availableDrivers,
+    });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Error" });
+  }
+};
