@@ -13,6 +13,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/user/login`,
     method: "POST",
   },
+  logout: {
+    url: `${API_URI}/api/user/logout`,
+    method: "GET",
+  },
 };
 
 export default apiEndPoint;

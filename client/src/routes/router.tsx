@@ -8,6 +8,7 @@ import TheDriverSignUpPage from "../pages/TheDriverSignUpPage";
 import ThePassengerSignUpPage from "../pages/ThePassengerSignUpPage";
 import TheLoginPage from "../pages/TheLoginPage";
 import ThePassengerDashboardLayout from "../layouts/ThePassengerDashboardLayout";
+import ThePrivateRoute from "../components/ThePrivateRoute";
 
 const AppRouter = () => {
   return (
@@ -23,10 +24,12 @@ const AppRouter = () => {
         <Route path="passenger" element={<ThePassengerSignUpPage />} />
       </Route>
 
-      <Route
-        path="/passenger-dashboard"
-        element={<ThePassengerDashboardLayout />}
-      ></Route>
+      <Route path="*" element={<ThePrivateRoute />}>
+        <Route
+          path="passenger-dashboard"
+          element={<ThePassengerDashboardLayout />}
+        />
+      </Route>
     </Routes>
   );
 };

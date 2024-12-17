@@ -71,7 +71,7 @@ const TheLoginPage = () => {
 
         if (role === "passenger") {
           dispatch(userLogin(respData?.userData));
-          // navigate("/passenger-dashboard");
+          navigate("/passenger-dashboard");
         }
       }
       console.log(respData);
