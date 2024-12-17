@@ -9,7 +9,7 @@ import TheFooterSection from "../components/home/TheFooterSection";
 const TheHomePage = () => {
   return (
     <div>
-      <TheReactHelmet title={"City Taxi"} />
+      <TheReactHelmet title={"City-Taxi"} />
       <div className="mt-[6rem] background-gradient-image w-full min-h-[80vh] flex justify-center items-center">
         <TheHeroSection />
       </div>

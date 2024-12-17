@@ -17,6 +17,7 @@ const TheDriverSignUpPage = () => {
 
   const [image, setImage] = useState("");
   const [showProfileImgError, setShowProfileImgError] = useState(false);
+  const [loadingState, setLoadingState] = useState(false);
 
   const navigate = useNavigate();
 
@@ -105,8 +106,11 @@ const TheDriverSignUpPage = () => {
 
     const imgFile = e.target.files[0];
 
+    setLoadingState(true);
     const imgResults = await uploadImage(imgFile);
+    setLoadingState(false);
     setImage(imgResults?.secure_url);
+
     // console.log(imgResults?.secure_url);
   };
 
@@ -179,7 +183,6 @@ const TheDriverSignUpPage = () => {
         {/* Profile Img */}
         <div className="max-w-[5rem] h-[5rem] sm:max-w-[10rem] sm:h-[10rem] rounded-full bg-yellow-500 mx-auto p-[0.2rem] mb-5 relative overflow-hidden">
           <TheProfileImageView image={image} />
-
           <span
             onClick={handleButtonClick}
             className=" bg-slate-300 bg-opacity-60 p-2 absolute w-full text-center top-[6.5rem] pb-6 pt-2 cursor-pointer opacity-0 hover:opacity-100 transition-all"
@@ -187,6 +190,82 @@ const TheDriverSignUpPage = () => {
             Upload profile
           </span>
         </div>
+        {/* Loading msg */}
+        {loadingState === true ? (
+          <small className="-mt-3 mb-3 text-green-700 flex items-end justify-center gap-1">
+            <div>Uploading profile </div>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-dasharray="2 4"
+                    stroke-dashoffset="6"
+                    d="M12 21c-4.97 0 -9 -4.03 -9 -9c0 -4.97 4.03 -9 9 -9"
+                  >
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                      values="6;0"
+                    ></animate>
+                  </path>
+                  <path
+                    stroke-dasharray="32"
+                    stroke-dashoffset="32"
+                    d="M12 3c4.97 0 9 4.03 9 9c0 4.97 -4.03 9 -9 9"
+                  >
+                    <animate
+                      fill="freeze"
+                      attributeName="stroke-dashoffset"
+                      begin="0.1s"
+                      dur="0.4s"
+                      values="32;0"
+                    ></animate>
+                  </path>
+                  <path
+                    stroke-dasharray="10"
+                    stroke-dashoffset="10"
+                    d="M12 16v-7.5"
+                  >
+                    <animate
+                      fill="freeze"
+                      attributeName="stroke-dashoffset"
+                      begin="0.5s"
+                      dur="0.2s"
+                      values="10;0"
+                    ></animate>
+                  </path>
+                  <path
+                    stroke-dasharray="6"
+                    stroke-dashoffset="6"
+                    d="M12 8.5l3.5 3.5M12 8.5l-3.5 3.5"
+                  >
+                    <animate
+                      fill="freeze"
+                      attributeName="stroke-dashoffset"
+                      begin="0.7s"
+                      dur="0.2s"
+                      values="6;0"
+                    ></animate>
+                  </path>
+                </g>
+              </svg>
+            </div>
+          </small>
+        ) : (
+          ""
+        )}
         {showProfileImgError && (
           <small className="text-red-500 block text-center -mt-2 mb-3">
             Please upload your profile image.
