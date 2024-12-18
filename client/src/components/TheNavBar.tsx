@@ -73,7 +73,7 @@ const TheNavBar = () => {
           <li>
             {currentUser?._id && (
               <div className="w-10 h-10">
-                <Link to={"/"} className="w-full h-full">
+                <Link to={"/passenger-dashboard"} className="w-full h-full">
                   <TheProfileImageView image={currentUser?.profileImage} />
                 </Link>
               </div>
@@ -117,18 +117,51 @@ const TheNavBar = () => {
             <li>
               <NavLink to={"/"}>Home</NavLink>
             </li>
+
             <li>
-              <NavLink to={"drivers"}>Pick a Driver</NavLink>
+              {currentUser?.role !== "driver" && (
+                <NavLink to={"drivers"}>Pick a Driver</NavLink>
+              )}
+            </li>
+
+            <li>
+              {currentUser?._id && (
+                <div className="w-10 h-10">
+                  <Link to={"/"} className="w-full h-full">
+                    <TheProfileImageView image={currentUser?.profileImage} />
+                  </Link>
+                </div>
+              )}
+            </li>
+
+            <li>
+              {currentUser?._id ? (
+                <button
+                  onClick={handleLogout}
+                  className="border bg-yellow-500 w-10 h-10 text-3xl flex justify-center items-center rounded-full hover:bg-yellow-600 hover:text-white transition-all"
+                >
+                  <IoMdLogOut />
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate("/login")}
+                  className="border bg-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all"
+                >
+                  Login
+                </button>
+              )}
             </li>
             <li>
-              <button className="border bg-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all">
-                Login
-              </button>
-            </li>
-            <li>
-              <button className=" border border-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all">
-                Register
-              </button>
+              {!currentUser?._id && (
+                <button
+                  onClick={() => {
+                    navigate("/register/driver");
+                  }}
+                  className=" border border-yellow-500 px-5 py-1.5 rounded hover:bg-yellow-600 hover:text-white transition-all"
+                >
+                  Register
+                </button>
+              )}
             </li>
           </ul>
         )}

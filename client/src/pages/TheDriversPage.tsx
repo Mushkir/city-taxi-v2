@@ -3,11 +3,23 @@ import TheReactHelmet from "../components/TheReactHelmet";
 import apiEndPoint from "../common/apiEndPoint";
 import TheSkeletonLoading from "../components/TheSkeletonLoading";
 import Driver from "../interface/driver";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { TbSearch } from "react-icons/tb";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import TheReservationModal from "../components/TheReservationModal";
+import { addReservationDriverId } from "../redux/reservation/reservationSlice";
 
 const TheDriversPage = () => {
   const [availableDrivers, setAvailableDrivers] = useState<Driver[]>([]);
   const [loading, setLoading] = useState(false);
+  const [openReservationModal, setOpenReservationModal] = useState(false);
+
+  const navigate = useNavigate();
+
+  const currentUser = useSelector((state: RootState) => state?.user);
+  const dispatch = useDispatch();
 
   const getAllAvailableDrivers = async () => {
     try {
@@ -28,10 +40,26 @@ const TheDriversPage = () => {
     }
   };
 
+  const handleReservation = (id: string) => {
+    try {
+      if (!currentUser) {
+        navigate("/login");
+        setTimeout(() => {
+          toast.error("Please login to make a reservation");
+        }, 200);
+        return;
+      } else {
+        dispatch(addReservationDriverId(id));
+        setOpenReservationModal(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getAllAvailableDrivers();
   }, []);
-  console.log(availableDrivers);
 
   return (
     <div className="pt-[6rem]">
@@ -39,6 +67,18 @@ const TheDriversPage = () => {
       <div>
         {/* <!-- Card Blog --> */}
         <div className="max-w-[70rem] container px-2 sm:px-10 mx-auto mb-5 mt-5">
+          <form action="" method="post" className="relative mb-5">
+            <input
+              type="text"
+              className=" w-full px-3 py-2 rounded-md"
+              placeholder="Search..."
+            />
+
+            <div className=" absolute right-3 top-3">
+              <TbSearch />
+            </div>
+          </form>
+
           <h3 className=" text-2xl text-center font-semibold mb-3">
             Available drivers
           </h3>
@@ -164,6 +204,9 @@ const TheDriversPage = () => {
                     <div className="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
                       <button
                         type="button"
+                        onClick={() => {
+                          handleReservation(driver?._id);
+                        }}
                         className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-ee-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                       >
                         Reserve for Ride
@@ -179,6 +222,7 @@ const TheDriversPage = () => {
         </div>
         {/* <!-- End Card Blog --> */}
       </div>
+      {openReservationModal && <TheReservationModal />}
     </div>
   );
 };

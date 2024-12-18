@@ -1,8 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"
 // import storageSession from 'redux-persist/lib/storage/session'
 import userReducer from "./user/userSlice"
+import reservationReducer from "./reservation/reservationSlice"
 
 
 const persistConfig = {
@@ -10,7 +11,12 @@ const persistConfig = {
     storage
 }
 
-const persistedReducer = persistReducer(persistConfig, userReducer)
+const rootReducer = combineReducers({
+    user: userReducer,
+    reservation: reservationReducer
+})
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware({

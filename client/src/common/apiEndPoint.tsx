@@ -21,6 +21,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/driver/show-all-drivers`,
     method: "GET",
   },
+  reserveTaxi: {
+    url: `${API_URI}/api/reservation/reserve-taxi`,
+    method: "POST",
+  },
 };
 
 export default apiEndPoint;

@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import passengerRouter from "./routes/passenger.routes.js";
 import userRouter from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
+import reservationRouter from "./routes/reservation.routes.js";
 
 const app = express();
 app.use(cookieParser());
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use("/api/driver", driverRouter);
 app.use("/api/passenger", passengerRouter);
 app.use("/api/user", userRouter);
+app.use("/api/reservation", reservationRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is working on http://localhost:${PORT}`);
