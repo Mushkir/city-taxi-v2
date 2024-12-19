@@ -98,3 +98,28 @@ export const ReadDriver = async (req, res) => {
     res.status(500).json({ error: true, message: error?.message || "Error" });
   }
 };
+
+// POST Method
+// Get driver detail
+export const GetDriverDetail = async (req, res) => {
+  try {
+    const loggedInUser = req.userId;
+    const { id } = req?.body;
+
+    if (!loggedInUser) {
+      return res
+        .status(401)
+        .json({ status: 401, message: "Forbidden", error: true });
+    }
+
+    const selectedDriver = await Driver.findOne({ _id: id });
+
+    res.status(200).json({
+      status: 200,
+      error: false,
+      data: selectedDriver?.city,
+    });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Error" });
+  }
+};

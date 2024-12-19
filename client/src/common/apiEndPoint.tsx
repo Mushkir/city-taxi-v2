@@ -21,6 +21,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/driver/show-all-drivers`,
     method: "GET",
   },
+  getSelectedDriverDetail: {
+    url: `${API_URI}/api/driver/get-selected-driver-detail`,
+    method: "POST",
+  },
   reserveTaxi: {
     url: `${API_URI}/api/reservation/reserve-taxi`,
     method: "POST",
