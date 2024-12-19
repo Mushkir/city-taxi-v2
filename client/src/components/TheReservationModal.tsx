@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { IoCloseSharp } from "react-icons/io5";
@@ -9,7 +9,13 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const TheReservationModal = () => {
+interface TheReservationModalProps {
+  onClose: () => void;
+}
+
+const TheReservationModal: FunctionComponent<TheReservationModalProps> = ({
+  onClose,
+}) => {
   const schema = z.object({
     dropLocation: z
       .string()
@@ -71,7 +77,10 @@ const TheReservationModal = () => {
             The Taxi Fair Reservation
           </h3>
 
-          <div className="text-white text-lg hover:bg-white hover:text-black rounded-full cursor-pointer transition-all">
+          <div
+            onClick={() => onClose()}
+            className="text-white text-lg hover:bg-white hover:text-black rounded-full cursor-pointer transition-all"
+          >
             <IoCloseSharp />
           </div>
         </div>

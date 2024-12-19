@@ -16,6 +16,10 @@ const TheDriversPage = () => {
   const [loading, setLoading] = useState(false);
   const [openReservationModal, setOpenReservationModal] = useState(false);
 
+  const closeReservationModal = () => {
+    setOpenReservationModal(false);
+  };
+
   const navigate = useNavigate();
 
   const currentUser = useSelector((state: RootState) => state?.user);
@@ -222,7 +226,7 @@ const TheDriversPage = () => {
         </div>
         {/* <!-- End Card Blog --> */}
       </div>
-      {openReservationModal && <TheReservationModal />}
+      {openReservationModal && <TheReservationModal onClose={closeReservationModal} />}
     </div>
   );
 };
