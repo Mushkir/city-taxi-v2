@@ -36,3 +36,7 @@ nav ul a.active {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.wrapper {
+  @apply mt-[6rem];
+}

@@ -3,12 +3,12 @@ import { Link, NavLink, useNavigate } from "react-router";
 import { IoMdMenu } from "react-icons/io";
 import { MdOutlineClose } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
-// import Context from "../context/context";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import TheProfileImageView from "./TheProfileImageView";
 import apiEndPoint from "../common/apiEndPoint";
 import { userLogout } from "../redux/user/userSlice";
+import Context from "../context/context";
 
 const TheNavBar = () => {
   const navigate = useNavigate();
@@ -17,8 +17,9 @@ const TheNavBar = () => {
 
   const currentUser = useSelector((state: RootState) => state?.user?.user);
 
-  // const context = useContext(Context);
-  // console.log(context?.currentUser);
+  const context = useContext(Context);
+  const { countOfReservations } = context;
+  // console.log(context);
 
   const handleOpenNavMenu = () => {
     setIsOpen(!isOpen);
@@ -65,8 +66,17 @@ const TheNavBar = () => {
 
           <li>
             {currentUser?.role !== "driver" && (
-              <NavLink to={"drivers"}>Pick a Driver</NavLink>
+              <NavLink to={"/drivers"}>Pick a Driver</NavLink>
             )}
+          </li>
+
+          <li>
+            <NavLink to={"/reservations"}>
+              Reservations{" "}
+              <sup className="bg-yellow-500 px-1 rounded-full ">
+                {countOfReservations}
+              </sup>
+            </NavLink>
           </li>
 
           <li>

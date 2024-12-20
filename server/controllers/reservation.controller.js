@@ -28,3 +28,20 @@ export const Create = async (req, res) => {
     res.status(500).json({ error: true, message: error?.message || "Error" });
   }
 };
+
+// GET Method
+// Count user reservations
+export const Count = async (req, res) => {
+  const loggedInUserId = req?.userId;
+
+  try {
+    const query = { passengerId: loggedInUserId };
+    const countPassengerReservations = await Reservation.countDocuments(query);
+
+    res
+      .status(200)
+      .json({ status: 200, count: countPassengerReservations, error: false });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Error" });
+  }
+};

@@ -9,6 +9,7 @@ import ThePassengerSignUpPage from "../pages/ThePassengerSignUpPage";
 import TheLoginPage from "../pages/TheLoginPage";
 import ThePassengerDashboardLayout from "../layouts/ThePassengerDashboardLayout";
 import ThePrivateRoute from "../components/ThePrivateRoute";
+import TheReservationHistoryPage from "../pages/TheReservationHistoryPage";
 
 const AppRouter = () => {
   return (
@@ -29,6 +30,8 @@ const AppRouter = () => {
           path="passenger-dashboard"
           element={<ThePassengerDashboardLayout />}
         />
+
+        <Route path="reservations" element={<TheReservationHistoryPage />} />
       </Route>
     </Routes>
   );

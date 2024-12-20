@@ -29,6 +29,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/reservation/reserve-taxi`,
     method: "POST",
   },
+  countReservations: {
+    url: `${API_URI}/api/reservation/count-reservations`,
+    method: "GET",
+  },
 };
 
 export default apiEndPoint;
