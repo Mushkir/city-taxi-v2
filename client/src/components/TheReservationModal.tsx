@@ -8,6 +8,7 @@ import TheTextInput from "./TheTextInput";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
 
 interface TheReservationModalProps {
   onClose: () => void;
@@ -16,6 +17,7 @@ interface TheReservationModalProps {
 const TheReservationModal: FunctionComponent<TheReservationModalProps> = ({
   onClose,
 }) => {
+  // Zod validation schema
   const schema = z.object({
     dropLocation: z
       .string()
@@ -32,8 +34,9 @@ const TheReservationModal: FunctionComponent<TheReservationModalProps> = ({
   } = useForm<ValidationSchemaType>({
     resolver: zodResolver(schema),
   });
+  // End of Zod validation schema
 
-  const currentUser = useSelector((state: RootState) => state?.user);
+  const currentUser = useSelector((state: RootState) => state?.user?.user);
   const driverId = useSelector(
     (state: RootState) => state?.reservation?.driverId
   );
@@ -61,8 +64,39 @@ const TheReservationModal: FunctionComponent<TheReservationModalProps> = ({
     }
   };
 
-  const onSubmit: SubmitHandler<ValidationSchemaType> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<ValidationSchemaType> = async (data) => {
+    /*
+    1. Pickup location
+    2. Drop location
+    3. Passenger id
+    4. Driver id
+     */
+    const formData = {
+      ...data,
+      pickupLocation: driverCityName,
+      driverId,
+    };
+
+    // Send the reservation data to the server
+    try {
+      const response = await fetch(apiEndPoint.reserveTaxi.url, {
+        method: apiEndPoint.reserveTaxi.method,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const respData = await response.json();
+      if (!respData?.error && respData?.status === 201) {
+        toast.success(respData?.message);
+        onClose();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    // console.log(formData);
   };
 
   useEffect(() => {

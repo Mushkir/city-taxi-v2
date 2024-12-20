@@ -22,7 +22,9 @@ const TheDriversPage = () => {
 
   const navigate = useNavigate();
 
-  const currentUser = useSelector((state: RootState) => state?.user);
+  const currentUser = useSelector((state: RootState) => state?.user?.user);
+  // console.log(currentUser);
+
   const dispatch = useDispatch();
 
   const getAllAvailableDrivers = async () => {
@@ -226,7 +228,9 @@ const TheDriversPage = () => {
         </div>
         {/* <!-- End Card Blog --> */}
       </div>
-      {openReservationModal && <TheReservationModal onClose={closeReservationModal} />}
+      {openReservationModal && (
+        <TheReservationModal onClose={closeReservationModal} />
+      )}
     </div>
   );
 };

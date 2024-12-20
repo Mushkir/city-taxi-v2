@@ -15,8 +15,7 @@ const TheNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const currentUser = useSelector((state: RootState) => state?.user);
-  // console.log(currentUser);
+  const currentUser = useSelector((state: RootState) => state?.user?.user);
 
   // const context = useContext(Context);
   // console.log(context?.currentUser);
