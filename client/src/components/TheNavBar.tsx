@@ -13,13 +13,16 @@ import Context from "../context/context";
 const TheNavBar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state: RootState) => state?.user?.user);
+  const countReservations = useSelector(
+    (state: RootState) => state?.countReservation?.count
+  );
 
-  const context = useContext(Context);
-  const { countOfReservations } = context;
-  // console.log(context);
+  // const context = useContext(Context);
+  // const { countOfReservations } = context;
 
   const handleOpenNavMenu = () => {
     setIsOpen(!isOpen);
@@ -71,12 +74,16 @@ const TheNavBar = () => {
           </li>
 
           <li>
-            <NavLink to={"/reservations"}>
-              Reservations{" "}
-              <sup className="bg-yellow-500 px-1 rounded-full ">
-                {countOfReservations}
-              </sup>
-            </NavLink>
+            {currentUser?.role === "passenger" && (
+              <NavLink to={"/reservations"}>
+                Reservations{" "}
+                <sup className="bg-yellow-500 px-1 rounded-full text-black">
+                  {countReservations !== undefined
+                    ? countReservations.toString()
+                    : "0"}
+                </sup>
+              </NavLink>
+            )}
           </li>
 
           <li>

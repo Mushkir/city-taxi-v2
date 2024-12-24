@@ -5,13 +5,16 @@ import TheFooter from "../components/TheFooter";
 import { ToastContainer } from "react-toastify";
 import Context from "../context/context";
 import type { RootState } from "../redux/store";
-import { useSelector } from "react-redux";
 import apiEndPoint from "../common/apiEndPoint";
+import { useDispatch, useSelector } from "react-redux";
+import { setCountReservation } from "../redux/reservation/countReservationSlice";
 
 const TheGuestLayout: FunctionComponent = () => {
-  const currentUser = useSelector((state: RootState) => state?.user?.user);
+  // const currentUser = useSelector((state: RootState) => state?.user?.user);
+  const dispatch = useDispatch();
 
-  const [countOfReservations, setCountOfReservations] = useState(0);
+  // const [countOfReservations, setCountOfReservations] = useState(0);
+  const [countOfReservations, setCountOfReservations] = useState<number>(0);
 
   const countReservations = async () => {
     try {
@@ -22,7 +25,8 @@ const TheGuestLayout: FunctionComponent = () => {
 
       const respData = await response.json();
       if (respData?.status === 200 && !respData?.error) {
-        setCountOfReservations(respData?.count);
+        // setCountOfReservations(respData?.count);
+        dispatch(setCountReservation(respData?.count));
       }
       // console.log(respData);
     } catch (error) {
@@ -30,13 +34,21 @@ const TheGuestLayout: FunctionComponent = () => {
     }
   };
 
+  // console.log(countOfReservations);
+
   useEffect(() => {
     countReservations();
   }, []);
 
   return (
     <div>
-      <Context.Provider value={{ currentUser, countOfReservations }}>
+      <Context.Provider
+        value={{
+          countOfReservations,
+          setCountOfReservations,
+          countReservations,
+        }}
+      >
         <TheNavBar />
         <main className="min-h-screen">
           <Outlet />

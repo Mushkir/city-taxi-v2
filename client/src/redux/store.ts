@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage"
 // import storageSession from 'redux-persist/lib/storage/session'
 import userReducer from "./user/userSlice"
 import reservationReducer from "./reservation/reservationSlice"
+import countReservationReducer from "./reservation/countReservationSlice"
 
 
 const persistConfig = {
@@ -13,7 +14,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userReducer,
-    reservation: reservationReducer
+    reservation: reservationReducer,
+    countReservation: countReservationReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
