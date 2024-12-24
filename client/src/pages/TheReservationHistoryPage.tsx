@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TheNavBar from "../components/TheNavBar";
 import TheReactHelmet from "../components/TheReactHelmet";
+import apiEndPoint from "../common/apiEndPoint";
 
 const TheReservationHistoryPage = () => {
+  const getAllReservationDetails = async () => {
+    try {
+      const response = await fetch(apiEndPoint.showReservationHistory.url, {
+        credentials: "include",
+        method: apiEndPoint.showReservationHistory.method,
+      });
+
+      const respData = await response.json();
+      console.log(respData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllReservationDetails();
+  }, []);
+
   return (
     <>
       <TheReactHelmet title="Reservations | City-Taxi" />

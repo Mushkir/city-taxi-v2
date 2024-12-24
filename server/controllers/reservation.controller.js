@@ -45,3 +45,19 @@ export const Count = async (req, res) => {
     res.status(500).json({ error: true, message: error?.message || "Error" });
   }
 };
+
+// GET Method
+// Get all user reservations
+export const Read = async (req, res) => {
+  const passengerId = req?.userId;
+
+  try {
+    const reservations = await Reservation.find({
+      passengerId,
+    }).populate("driverId");
+
+    res.status(200).json({ data: reservations, status: 200, error: false });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Errorr" });
+  }
+};

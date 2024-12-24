@@ -33,6 +33,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/reservation/count-reservations`,
     method: "GET",
   },
+  showReservationHistory: {
+    url: `${API_URI}/api/reservation/show-reservation-details`,
+    method: "GET",
+  },
 };
 
 export default apiEndPoint;

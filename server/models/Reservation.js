@@ -14,11 +14,13 @@ const reservationSchema = new Schema(
 
     passengerId: {
       type: String,
+      ref: "Passenger",
       required: true,
     },
 
     driverId: {
       type: String,
+      ref: "Driver",
       required: true,
     },
 
