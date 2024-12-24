@@ -61,3 +61,19 @@ export const Read = async (req, res) => {
     res.status(500).json({ error: true, message: error?.message || "Errorr" });
   }
 };
+
+// DELETE Method
+// Cancel a reservation
+export const Delete = async (req, res) => {
+  try {
+    const { id } = req?.params;
+
+    await Reservation.deleteOne({ _id: id });
+    res
+      .status(200)
+      .json({ status: 200, message: "Reservation cancelled", error: false });
+    console.log(id);
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Errorr" });
+  }
+};

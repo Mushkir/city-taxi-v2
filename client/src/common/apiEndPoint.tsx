@@ -37,6 +37,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/reservation/show-reservation-details`,
     method: "GET",
   },
+  deleteReservation: {
+    url: `${API_URI}/api/reservation/delete-reservation`,
+    method: "DELETE",
+  },
 };
 
 export default apiEndPoint;
