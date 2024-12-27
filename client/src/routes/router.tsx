@@ -10,6 +10,7 @@ import TheLoginPage from "../pages/TheLoginPage";
 import ThePassengerDashboardLayout from "../layouts/ThePassengerDashboardLayout";
 import ThePrivateRoute from "../components/ThePrivateRoute";
 import TheReservationHistoryPage from "../pages/TheReservationHistoryPage";
+import TheDriverDashboardLayout from "../layouts/TheDriverDashboardLayout";
 
 const AppRouter = () => {
   return (
@@ -30,6 +31,8 @@ const AppRouter = () => {
           path="passenger-dashboard"
           element={<ThePassengerDashboardLayout />}
         />
+
+        <Route path="driver-dashboard" element={<TheDriverDashboardLayout />} />
 
         <Route path="reservations" element={<TheReservationHistoryPage />} />
       </Route>

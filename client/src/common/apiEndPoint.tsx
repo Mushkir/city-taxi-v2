@@ -41,6 +41,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/reservation/delete-reservation`,
     method: "DELETE",
   },
+  countDriverNewReservationRequest: {
+    url: `${API_URI}/api/driver/count-driver-new-request`,
+    method: "GET",
+  },
 };
 
 export default apiEndPoint;

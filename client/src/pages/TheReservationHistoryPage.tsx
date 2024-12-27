@@ -53,13 +53,13 @@ const TheReservationHistoryPage = () => {
       <TheReactHelmet title="Reservations | City-Taxi" />
       <TheNavBar />
 
-      <div className="wrapper px-5 min-h-screen">
+      <div className="wrapper px-10 min-h-screen">
         <div className="">
           <h3 className="text-2xl font-semibold text-center pt-10 text-yellow-700">
             Dear Mushkir! Here you can explore your whole trip log...
           </h3>
 
-          <div className="overflow-x-scroll">
+          <div className="overflow-x-scroll no-scrollbar">
             <table className="table-auto mx-auto w-full mt-4">
               <thead className="border-b-2 border-slate-900">
                 <tr className="bg-slate-400 border-2 border-slate-900 ">

@@ -1,4 +1,5 @@
 import Driver from "../models/Driver.js";
+import Reservation from "../models/Reservation.js";
 import bcrypt from "bcrypt";
 
 // POST Method
@@ -121,5 +122,24 @@ export const GetDriverDetail = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: true, message: error?.message || "Error" });
+  }
+};
+
+// GET Method
+// Count new reservation requests
+export const CountNewReservationRequests = async (req, res) => {
+  try {
+    const userId = req?.userId;
+
+    const query = { driverId: userId, status: "pending" };
+    const countNewRequests = await Reservation.countDocuments(query);
+
+    return res.status(200).json({
+      status: 200,
+      error: false,
+      data: countNewRequests,
+    });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Errorr" });
   }
 };

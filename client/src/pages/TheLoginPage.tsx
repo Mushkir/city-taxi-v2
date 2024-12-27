@@ -65,13 +65,17 @@ const TheLoginPage = () => {
 
       if (respData?.status === 200 && !respData?.error) {
         const { role } = respData?.userData;
+
         if (role === "driver") {
+          dispatch(userLogin(respData?.userData));
           navigate("/driver-dashboard");
+          return;
         }
 
         if (role === "passenger") {
           dispatch(userLogin(respData?.userData));
           navigate("/passenger-dashboard");
+          return;
         }
       }
       console.log(respData);

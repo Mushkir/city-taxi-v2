@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { IoMdMenu } from "react-icons/io";
 import { MdOutlineClose } from "react-icons/md";
@@ -45,6 +45,30 @@ const TheNavBar = () => {
     }
   };
 
+  // Get drivers new requests count
+  const countNewReservationRequest = async () => {
+    if (currentUser?.role === "driver") {
+      try {
+        const response = await fetch(
+          apiEndPoint.countDriverNewReservationRequest.url,
+          {
+            method: apiEndPoint.countDriverNewReservationRequest.method,
+            credentials: "include",
+          }
+        );
+
+        const respData = await response.json();
+        console.log(respData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    countNewReservationRequest();
+  }, [currentUser?.role === "driver" && currentUser?._id]);
+
   return (
     <nav className="bg-white mx-auto fixed top-0 left-0 right-0 w-full z-40">
       <header className="flex items-center justify-between px-2 sm:px-10 lg:px-20 py-5 relative">
@@ -68,8 +92,19 @@ const TheNavBar = () => {
           </li>
 
           <li>
-            {currentUser?.role !== "driver" && (
+            {currentUser?.role === "passenger" ? (
               <NavLink to={"/drivers"}>Pick a Driver</NavLink>
+            ) : (
+              <ul className=" flex items-center gap-4">
+                <li>
+                  <NavLink to={"/new-reservation"}>
+                    New Requests
+                    <sup className="bg-yellow-500 px-1 rounded-full text-black">
+                      1
+                    </sup>
+                  </NavLink>
+                </li>
+              </ul>
             )}
           </li>
 
@@ -87,13 +122,19 @@ const TheNavBar = () => {
           </li>
 
           <li>
-            {currentUser?._id && (
-              <div className="w-10 h-10">
+            <div className="w-10 h-10">
+              {currentUser?.role === "passenger" ? (
                 <Link to={"/passenger-dashboard"} className="w-full h-full">
                   <TheProfileImageView image={currentUser?.profileImage} />
                 </Link>
-              </div>
-            )}
+              ) : currentUser?.role === "driver" ? (
+                <Link to={"/driver-dashboard"} className="w-full h-full">
+                  <TheProfileImageView image={currentUser?.profileImg} />
+                </Link>
+              ) : (
+                ""
+              )}
+            </div>
           </li>
 
           <li>
