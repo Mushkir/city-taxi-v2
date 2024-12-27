@@ -7,11 +7,13 @@ import { Link } from "react-router";
 import dayjs from "dayjs";
 import TheFooter from "../components/TheFooter";
 import { FaTrashCan } from "react-icons/fa6";
-
-import { toast } from "react-toastify";
 import TheConfirmationPopUp from "../components/popups/TheConfirmationPopUp";
+import { useDispatch } from "react-redux";
+import { setReservationId } from "../redux/reservation/deleteReservation";
 
 const TheReservationHistoryPage = () => {
+  const dispatch = useDispatch();
+
   const [reservationData, setReservationData] = useState<Reservation[]>([]);
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
 
@@ -33,7 +35,12 @@ const TheReservationHistoryPage = () => {
     }
   };
 
+  const onCloseModal = () => {
+    setOpenConfirmationModal(false);
+  };
+
   const handleDeleteReservation = async (id: string) => {
+    dispatch(setReservationId(id));
     setOpenConfirmationModal(true);
   };
 
@@ -132,6 +139,7 @@ const TheReservationHistoryPage = () => {
               }
               confirmation="Yes! Cancel Reservation"
               cancelation="No"
+              onClose={onCloseModal}
             />
           )}
         </div>
