@@ -57,7 +57,7 @@ const TheGuestLayout: FunctionComponent = () => {
           // console.log(respData?.data);
           setNoOfNewReservationRequest(respData?.data);
         }
-        console.log(respData);
+        // console.log(respData);
       } catch (error) {
         console.error(error);
       }

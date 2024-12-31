@@ -7,6 +7,7 @@ import {
   GetDriverDetail,
   GetReservationRequestsDetail,
   ReadDriver,
+  RejectReservationRequest,
 } from "../controllers/driver.controller.js";
 
 const driverRouter = express.Router();
@@ -35,4 +36,9 @@ driverRouter.post(
   AcceptReservationRequest
 );
 
+driverRouter.post(
+  "/reject-reservation-request",
+  userAuth,
+  RejectReservationRequest
+);
 export default driverRouter;

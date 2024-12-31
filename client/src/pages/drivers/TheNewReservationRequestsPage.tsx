@@ -61,8 +61,29 @@ const TheNewReservationRequestsPage = () => {
     }
   };
 
-  const handleRejectRequest = (id: string) => {
-    console.log(id);
+  const handleRejectRequest = async (id: string) => {
+    try {
+      const response = await fetch(apiEndPoint.rejectReservationRequest.url, {
+        method: apiEndPoint.rejectReservationRequest.method,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reservationId: id }),
+      });
+
+      const respData = await response.json();
+
+      if (!respData?.error && respData?.status === 200) {
+        getNewRequestsDetail();
+        if (countNewReservationRequest) {
+          countNewReservationRequest();
+        }
+      }
+      // console.log(respData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

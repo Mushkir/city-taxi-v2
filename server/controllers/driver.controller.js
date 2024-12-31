@@ -188,3 +188,26 @@ export const AcceptReservationRequest = async (req, res) => {
     res.status(500).json({ error: true, message: error?.message || "Errorr" });
   }
 };
+
+// POST Method
+// Reject a reservation request
+export const RejectReservationRequest = async (req, res) => {
+  try {
+    const { reservationId } = req?.body;
+
+    const filter = { _id: reservationId };
+    const update = { status: "rejected" };
+
+    const rejectedDoc = await Reservation.findOneAndUpdate(filter, update, {
+      returnOriginal: false,
+    });
+
+    res.status(200).json({
+      status: 200,
+      error: false,
+      message: "Request has been rejected.",
+    });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Errorr" });
+  }
+};
