@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TheNavBar from "../../components/TheNavBar";
 import TheReactHelmet from "../../components/TheReactHelmet";
 import TheFooter from "../../components/TheFooter";
@@ -8,8 +8,11 @@ import { Link } from "react-router";
 import { MdDone } from "react-icons/md";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import apiEndPoint from "../../common/apiEndPoint";
+import RequestsDetail from "../../interface/requestDetails";
 
 const TheNewReservationRequestsPage = () => {
+  const [requestsData, setRequestsData] = useState([]);
+
   const getNewRequestsDetail = async () => {
     try {
       const response = await fetch(apiEndPoint.getNewRequestsDetail.url, {
@@ -18,8 +21,10 @@ const TheNewReservationRequestsPage = () => {
       });
 
       const respData = await response.json();
-
-      console.log(respData);
+      if (!respData?.error && respData?.status === 200) {
+        setRequestsData(respData?.data);
+      }
+      //   console.log(respData);
     } catch (error) {
       console.log(error);
     }
@@ -28,6 +33,8 @@ const TheNewReservationRequestsPage = () => {
   useEffect(() => {
     getNewRequestsDetail();
   }, []);
+
+  console.log(requestsData);
 
   return (
     <>
@@ -55,41 +62,56 @@ const TheNewReservationRequestsPage = () => {
                 <th scope="col" className="px-6 py-3">
                   Drop location
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Price
-                </th>
+
                 <th scope="col" className="px-6 py-3">
                   <span className="sr-only">Action</span>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="px-6 py-4">#1</td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Apple MacBook Pro 17"
-                </th>
-                <td className="px-6 py-4">Silver</td>
-                <td className="px-6 py-4">Laptop</td>
-                <td className="px-6 py-4">$2999</td>
-                <td className="px-6 py-4 text-right flex items-center gap-4">
-                  <Link
-                    to={"/"}
-                    className="bg-green-500 text-white p-1 text-lg rounded-full hover:bg-green-600 transition-all"
+              {requestsData.length > 0 ? (
+                requestsData.map((requestDetails: RequestsDetail) => (
+                  <tr
+                    key={requestDetails?._id}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                   >
-                    <MdDone />
-                  </Link>
-                  <Link
-                    to={"/"}
-                    className="bg-red-500 text-white p-1 text-lg rounded-full hover:bg-red-600 transition-all"
-                  >
-                    <BsFillTrash3Fill />
-                  </Link>
-                </td>
-              </tr>
+                    <td className="px-6 py-4">#1</td>
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {requestDetails?.passengerId?.name}
+                    </th>
+
+                    <td className="px-6 py-4">
+                      {requestDetails?.pickupLocation}
+                    </td>
+
+                    <td className="px-6 py-4">
+                      {requestDetails?.dropLocation}
+                    </td>
+
+                    <td className="px-6 py-4 text-right flex items-center gap-4">
+                      <Link
+                        to={"/"}
+                        className="bg-green-500 text-white p-1 text-lg rounded-full hover:bg-green-600 transition-all"
+                      >
+                        <MdDone />
+                      </Link>
+                      <Link
+                        to={"/"}
+                        className="bg-red-500 text-white p-1 text-lg rounded-full hover:bg-red-600 transition-all"
+                      >
+                        <BsFillTrash3Fill />
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr className=" col-span-6 text-red-500">
+                  <td>No new request found.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
