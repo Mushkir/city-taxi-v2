@@ -45,6 +45,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/driver/count-driver-new-request`,
     method: "GET",
   },
+  getNewRequestsDetail: {
+    url: `${API_URI}/api/driver/get-new-reservation-request-details`,
+    method: "GET",
+  },
 };
 
 export default apiEndPoint;

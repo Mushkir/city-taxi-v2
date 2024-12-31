@@ -143,3 +143,23 @@ export const CountNewReservationRequests = async (req, res) => {
     res.status(500).json({ error: true, message: error?.message || "Errorr" });
   }
 };
+
+// GET Method
+// Get all reservation requests detail
+export const GetReservationRequestsDetail = async (req, res) => {
+  try {
+    const driverId = req?.userId;
+
+    const requestDetails = await Reservation.find({
+      driverId: driverId,
+    }).populate("passengerId");
+
+    res.status(200).json({
+      status: 200,
+      data: requestDetails,
+      error: false,
+    });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Errorr" });
+  }
+};

@@ -4,6 +4,7 @@ import {
   CountNewReservationRequests,
   CreateDriver,
   GetDriverDetail,
+  GetReservationRequestsDetail,
   ReadDriver,
 } from "../controllers/driver.controller.js";
 
@@ -19,6 +20,12 @@ driverRouter.get(
   "/count-driver-new-request",
   userAuth,
   CountNewReservationRequests
+);
+
+driverRouter.get(
+  "/get-new-reservation-request-details",
+  userAuth,
+  GetReservationRequestsDetail
 );
 
 export default driverRouter;

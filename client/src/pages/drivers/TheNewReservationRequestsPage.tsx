@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TheNavBar from "../../components/TheNavBar";
 import TheReactHelmet from "../../components/TheReactHelmet";
 import TheFooter from "../../components/TheFooter";
@@ -7,8 +7,28 @@ import { Link } from "react-router";
 // React icons
 import { MdDone } from "react-icons/md";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import apiEndPoint from "../../common/apiEndPoint";
 
 const TheNewReservationRequestsPage = () => {
+  const getNewRequestsDetail = async () => {
+    try {
+      const response = await fetch(apiEndPoint.getNewRequestsDetail.url, {
+        credentials: "include",
+        method: apiEndPoint.getNewRequestsDetail.method,
+      });
+
+      const respData = await response.json();
+
+      console.log(respData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getNewRequestsDetail();
+  }, []);
+
   return (
     <>
       <TheReactHelmet title="New requests | City-Taxi" />
