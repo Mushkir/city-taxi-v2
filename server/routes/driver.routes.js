@@ -1,6 +1,7 @@
 import express from "express";
 import userAuth from "../middleware/user.auth.js";
 import {
+  AcceptReservationRequest,
   CountNewReservationRequests,
   CreateDriver,
   GetDriverDetail,
@@ -26,6 +27,12 @@ driverRouter.get(
   "/get-new-reservation-request-details",
   userAuth,
   GetReservationRequestsDetail
+);
+
+driverRouter.post(
+  "/accept-reservation-request",
+  userAuth,
+  AcceptReservationRequest
 );
 
 export default driverRouter;

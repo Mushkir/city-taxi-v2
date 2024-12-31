@@ -10,11 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCountReservation } from "../redux/reservation/countReservationSlice";
 
 const TheGuestLayout: FunctionComponent = () => {
-  // const currentUser = useSelector((state: RootState) => state?.user?.user);
+  const currentUser = useSelector((state: RootState) => state?.user?.user);
   const dispatch = useDispatch();
 
   // const [countOfReservations, setCountOfReservations] = useState(0);
   const [countOfReservations, setCountOfReservations] = useState<number>(0);
+  const [noOfNewReservationRequest, setNoOfNewReservationRequest] =
+    useState<number>(0);
 
   const countReservations = async () => {
     try {
@@ -36,9 +38,41 @@ const TheGuestLayout: FunctionComponent = () => {
 
   // console.log(countOfReservations);
 
+  // Get drivers new requests count
+  const countNewReservationRequest = async () => {
+    if (currentUser?.role === "driver") {
+      try {
+        // setLoading(true);
+        const response = await fetch(
+          apiEndPoint.countDriverNewReservationRequest.url,
+          {
+            method: apiEndPoint.countDriverNewReservationRequest.method,
+            credentials: "include",
+          }
+        );
+
+        // setLoading(false);
+        const respData = await response.json();
+        if (respData?.status === 200 && !respData?.error) {
+          // console.log(respData?.data);
+          setNoOfNewReservationRequest(respData?.data);
+        }
+        console.log(respData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  // console.log(noOfNewReservationRequest);
+
   useEffect(() => {
     countReservations();
   }, []);
+
+  useEffect(() => {
+    countNewReservationRequest();
+  }, [currentUser?.role === "driver" && currentUser?._id]);
 
   return (
     <div>
@@ -47,6 +81,8 @@ const TheGuestLayout: FunctionComponent = () => {
           countOfReservations,
           setCountOfReservations,
           countReservations,
+          countNewReservationRequest,
+          noOfNewReservationRequest,
         }}
       >
         <TheNavBar />

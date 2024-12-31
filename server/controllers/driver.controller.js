@@ -152,12 +152,37 @@ export const GetReservationRequestsDetail = async (req, res) => {
 
     const requestDetails = await Reservation.find({
       driverId: driverId,
+      status: "pending",
     }).populate("passengerId");
 
     res.status(200).json({
       status: 200,
       data: requestDetails,
       error: false,
+    });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Errorr" });
+  }
+};
+
+// POST Method
+// Accept a reservation request
+export const AcceptReservationRequest = async (req, res) => {
+  try {
+    const { reservationId } = req?.body;
+
+    const filter = { _id: reservationId };
+    const update = { status: "on process" };
+
+    const doc = await Reservation.findOneAndUpdate(filter, update, {
+      returnOriginal: false,
+    });
+
+    res.status(200).json({
+      status: 200,
+      error: false,
+      data: doc,
+      message: "Request has been accepted.",
     });
   } catch (error) {
     res.status(500).json({ error: true, message: error?.message || "Errorr" });

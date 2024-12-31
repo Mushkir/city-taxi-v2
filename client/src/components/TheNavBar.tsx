@@ -13,7 +13,8 @@ import Context from "../context/context";
 const TheNavBar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [noOfNewReservationRequest, setNoOfNewReservationRequest] = useState(0);
+
+  const { noOfNewReservationRequest } = useContext(Context);
 
   const dispatch = useDispatch();
 
@@ -21,9 +22,6 @@ const TheNavBar = () => {
   const countReservations = useSelector(
     (state: RootState) => state?.countReservation?.count
   );
-
-  // const context = useContext(Context);
-  // const { countOfReservations } = context;
 
   const handleOpenNavMenu = () => {
     setIsOpen(!isOpen);
@@ -45,34 +43,6 @@ const TheNavBar = () => {
       console.error(error);
     }
   };
-
-  // Get drivers new requests count
-  const countNewReservationRequest = async () => {
-    if (currentUser?.role === "driver") {
-      try {
-        const response = await fetch(
-          apiEndPoint.countDriverNewReservationRequest.url,
-          {
-            method: apiEndPoint.countDriverNewReservationRequest.method,
-            credentials: "include",
-          }
-        );
-
-        const respData = await response.json();
-        if (respData?.status === 200 && !respData?.error) {
-          console.log(respData?.data);
-          setNoOfNewReservationRequest(respData?.data);
-        }
-        // console.log(respData);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    countNewReservationRequest();
-  }, [currentUser?.role === "driver" && currentUser?._id]);
 
   return (
     <nav className="bg-white mx-auto fixed top-0 left-0 right-0 w-full z-40">
@@ -99,17 +69,23 @@ const TheNavBar = () => {
           <li>
             {currentUser?.role === "passenger" ? (
               <NavLink to={"/drivers"}>Pick a Driver</NavLink>
-            ) : (
+            ) : currentUser?.role === "driver" ? (
               <ul className=" flex items-center gap-4">
                 <li>
                   <NavLink to={"/new-reservation"}>
                     New Requests
-                    <sup className="bg-yellow-500 px-1 rounded-full text-black">
-                      {noOfNewReservationRequest}
-                    </sup>
+                    {noOfNewReservationRequest > 0 && (
+                      <sup className="bg-yellow-500 px-1 rounded-full text-black">
+                        {noOfNewReservationRequest}
+                      </sup>
+                    )}
                   </NavLink>
                 </li>
               </ul>
+            ) : (
+              <li>
+                <Link to={"/"}>About Us</Link>
+              </li>
             )}
           </li>
 

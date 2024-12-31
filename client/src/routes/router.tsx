@@ -37,11 +37,13 @@ const AppRouter = () => {
 
         <Route path="reservations" element={<TheReservationHistoryPage />} />
 
-        {/* Driver Route */}
-        <Route
-          path="new-reservation"
-          element={<TheNewReservationRequestsPage />}
-        />
+        <Route element={<TheGuestLayout />}>
+          {/* Driver Route */}
+          <Route
+            path="new-reservation"
+            element={<TheNewReservationRequestsPage />}
+          />
+        </Route>
       </Route>
     </Routes>
   );

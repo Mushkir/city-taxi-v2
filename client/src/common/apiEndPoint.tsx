@@ -49,6 +49,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/driver/get-new-reservation-request-details`,
     method: "GET",
   },
+  acceptReservationRequest: {
+    url: `${API_URI}/api/driver/accept-reservation-request`,
+    method: "POST",
+  },
 };
 
 export default apiEndPoint;
