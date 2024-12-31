@@ -7,7 +7,7 @@ interface TheProfileImageViewProps {
 const TheProfileImageView: FunctionComponent<TheProfileImageViewProps> = ({
   image,
 }) => {
-  console.log(image);
+  // console.log(image);
 
   return (
     <>

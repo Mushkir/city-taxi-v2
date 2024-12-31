@@ -13,6 +13,7 @@ import Context from "../context/context";
 const TheNavBar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [noOfNewReservationRequest, setNoOfNewReservationRequest] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -58,7 +59,11 @@ const TheNavBar = () => {
         );
 
         const respData = await response.json();
-        console.log(respData);
+        if (respData?.status === 200 && !respData?.error) {
+          console.log(respData?.data);
+          setNoOfNewReservationRequest(respData?.data);
+        }
+        // console.log(respData);
       } catch (error) {
         console.error(error);
       }
@@ -100,7 +105,7 @@ const TheNavBar = () => {
                   <NavLink to={"/new-reservation"}>
                     New Requests
                     <sup className="bg-yellow-500 px-1 rounded-full text-black">
-                      1
+                      {noOfNewReservationRequest}
                     </sup>
                   </NavLink>
                 </li>

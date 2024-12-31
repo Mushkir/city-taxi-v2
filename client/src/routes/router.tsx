@@ -11,6 +11,7 @@ import ThePassengerDashboardLayout from "../layouts/ThePassengerDashboardLayout"
 import ThePrivateRoute from "../components/ThePrivateRoute";
 import TheReservationHistoryPage from "../pages/TheReservationHistoryPage";
 import TheDriverDashboardLayout from "../layouts/TheDriverDashboardLayout";
+import TheNewReservationRequestsPage from "../pages/drivers/TheNewReservationRequestsPage";
 
 const AppRouter = () => {
   return (
@@ -35,6 +36,12 @@ const AppRouter = () => {
         <Route path="driver-dashboard" element={<TheDriverDashboardLayout />} />
 
         <Route path="reservations" element={<TheReservationHistoryPage />} />
+
+        {/* Driver Route */}
+        <Route
+          path="new-reservation"
+          element={<TheNewReservationRequestsPage />}
+        />
       </Route>
     </Routes>
   );
