@@ -211,3 +211,26 @@ export const RejectReservationRequest = async (req, res) => {
     res.status(500).json({ error: true, message: error?.message || "Errorr" });
   }
 };
+
+// POST Method
+// Change driver state as busy
+export const ChangeDriverStateAsBusy = async (req, res) => {
+  try {
+    const { driverId } = req?.body;
+
+    const filter = { _id: driverId };
+    const update = { availabilityStatus: false };
+
+    const statusUpdatedDoc = await Driver.findOneAndUpdate(filter, update, {
+      returnOriginal: false,
+    });
+
+    res.status(200).json({
+      status: 200,
+      error: false,
+      message: "Driver state has been changed as busy.",
+    });
+  } catch (error) {
+    res.status(500).json({ error: true, message: error?.message || "Error" });
+  }
+};

@@ -2,6 +2,7 @@ import express from "express";
 import userAuth from "../middleware/user.auth.js";
 import {
   AcceptReservationRequest,
+  ChangeDriverStateAsBusy,
   CountNewReservationRequests,
   CreateDriver,
   GetDriverDetail,
@@ -40,5 +41,11 @@ driverRouter.post(
   "/reject-reservation-request",
   userAuth,
   RejectReservationRequest
+);
+
+driverRouter.post(
+  "/change-driver-to-busy-status",
+  userAuth,
+  ChangeDriverStateAsBusy
 );
 export default driverRouter;

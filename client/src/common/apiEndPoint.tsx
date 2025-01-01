@@ -57,6 +57,10 @@ const apiEndPoint = {
     url: `${API_URI}/api/driver/reject-reservation-request`,
     method: "POST",
   },
+  changeDriverStatus: {
+    url: `${API_URI}/api/driver/change-driver-to-busy-status`,
+    method: "POST",
+  },
 };
 
 export default apiEndPoint;

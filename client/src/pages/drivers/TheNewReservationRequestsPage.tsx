@@ -8,6 +8,7 @@ import RequestsDetail from "../../interface/requestDetails";
 import sendEmail from "../../utils/sendEmail";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { toast } from "react-toastify";
 
 const TheNewReservationRequestsPage = () => {
   let no = 1;
@@ -85,6 +86,27 @@ const TheNewReservationRequestsPage = () => {
     }
   };
 
+  const handleChangeDriverStatus = async (id: string) => {
+    try {
+      const response = await fetch(apiEndPoint.changeDriverStatus.url, {
+        method: apiEndPoint.changeDriverStatus.method,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ driverId: id }),
+      });
+
+      const respData = await response.json();
+      if (!respData?.error && respData?.status === 200) {
+        toast.success(respData?.message);
+      }
+      // console.log(respData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getNewRequestsDetail();
   }, []);
@@ -149,9 +171,10 @@ const TheNewReservationRequestsPage = () => {
                       <td className="px-6 py-4 text-right flex items-center gap-4">
                         {/* Accept button */}
                         <div
-                          onClick={async () => {
+                          onClick={() => {
                             handleAcceptRequest(requestDetails?._id);
-                            await sendEmail(
+                            handleChangeDriverStatus(requestDetails?.driverId);
+                            sendEmail(
                               requestDetails?.passengerId?.email,
                               requestDetails?.passengerId?.name,
                               driverDetail?.name,
