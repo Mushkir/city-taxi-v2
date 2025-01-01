@@ -4,6 +4,8 @@ interface CurrentUser {
   profileImage: string;
   profileImg: string;
   role: string;
+  taxiNumber?: string;
+  phone?: string;
 }
 
 export default CurrentUser;

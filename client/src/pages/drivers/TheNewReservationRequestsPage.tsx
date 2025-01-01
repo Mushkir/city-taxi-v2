@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import TheNavBar from "../../components/TheNavBar";
 import TheReactHelmet from "../../components/TheReactHelmet";
 import TheFooter from "../../components/TheFooter";
 import Context from "../../context/context";
@@ -9,15 +8,18 @@ import { MdDone } from "react-icons/md";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import apiEndPoint from "../../common/apiEndPoint";
 import RequestsDetail from "../../interface/requestDetails";
+import sendEmail from "../../utils/sendEmail";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const TheNewReservationRequestsPage = () => {
   let no = 1;
   const [requestsData, setRequestsData] = useState([]);
 
   const { countNewReservationRequest } = useContext(Context);
-  // const context = useContext(Context);
 
-  // console.log(context);
+  const driverDetail = useSelector((state: RootState) => state?.user?.user);
+  // console.log(driverDetail);
 
   const getNewRequestsDetail = async () => {
     try {
@@ -123,46 +125,61 @@ const TheNewReservationRequestsPage = () => {
             </thead>
             <tbody>
               {requestsData.length > 0 ? (
-                requestsData.map((requestDetails: RequestsDetail) => (
-                  <tr
-                    key={requestDetails?._id}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                  >
-                    <td className="px-6 py-4">#{no++}</td>
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                requestsData.map((requestDetails: RequestsDetail) => {
+                  // console.log(requestDetails?.passengerId?.email);
+
+                  return (
+                    <tr
+                      key={requestDetails?._id}
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     >
-                      {requestDetails?.passengerId?.name}
-                    </th>
-
-                    <td className="px-6 py-4">
-                      {requestDetails?.pickupLocation}
-                    </td>
-
-                    <td className="px-6 py-4">
-                      {requestDetails?.dropLocation}
-                    </td>
-
-                    <td className="px-6 py-4 text-right flex items-center gap-4">
-                      {/* Accept button */}
-                      <div
-                        onClick={() => handleAcceptRequest(requestDetails?._id)}
-                        className="cursor-pointer bg-green-500 text-white p-1 text-lg rounded-full hover:bg-green-600 transition-all"
+                      <td className="px-6 py-4">#{no++}</td>
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                       >
-                        <MdDone />
-                      </div>
+                        {requestDetails?.passengerId?.name}
+                      </th>
 
-                      {/* Reject button */}
-                      <div
-                        onClick={() => handleRejectRequest(requestDetails?._id)}
-                        className="cursor-pointer bg-red-500 text-white p-1 text-lg rounded-full hover:bg-red-600 transition-all"
-                      >
-                        <BsFillTrash3Fill />
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                      <td className="px-6 py-4">
+                        {requestDetails?.pickupLocation}
+                      </td>
+
+                      <td className="px-6 py-4">
+                        {requestDetails?.dropLocation}
+                      </td>
+
+                      <td className="px-6 py-4 text-right flex items-center gap-4">
+                        {/* Accept button */}
+                        <div
+                          onClick={async () => {
+                            handleAcceptRequest(requestDetails?._id);
+                            await sendEmail(
+                              requestDetails?.passengerId?.email,
+                              requestDetails?.passengerId?.name,
+                              driverDetail?.name,
+                              driverDetail?.taxiNumber,
+                              driverDetail?.phone
+                            );
+                          }}
+                          className="cursor-pointer bg-green-500 text-white p-1 text-lg rounded-full hover:bg-green-600 transition-all"
+                        >
+                          <MdDone />
+                        </div>
+
+                        {/* Reject button */}
+                        <div
+                          onClick={() =>
+                            handleRejectRequest(requestDetails?._id)
+                          }
+                          className="cursor-pointer bg-red-500 text-white p-1 text-lg rounded-full hover:bg-red-600 transition-all"
+                        >
+                          <BsFillTrash3Fill />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               ) : (
                 <tr className="">
                   <td
