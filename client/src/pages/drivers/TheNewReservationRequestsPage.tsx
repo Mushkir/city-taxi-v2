@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import TheReactHelmet from "../../components/TheReactHelmet";
-import TheFooter from "../../components/TheFooter";
 import Context from "../../context/context";
-
-// React icons
 import { MdDone } from "react-icons/md";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import apiEndPoint from "../../common/apiEndPoint";
@@ -57,9 +54,9 @@ const TheNewReservationRequestsPage = () => {
           countNewReservationRequest();
         }
       }
-      console.log(respData);
+      // console.log(respData);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -169,9 +166,13 @@ const TheNewReservationRequestsPage = () => {
 
                         {/* Reject button */}
                         <div
-                          onClick={() =>
-                            handleRejectRequest(requestDetails?._id)
-                          }
+                          onClick={async () => {
+                            handleRejectRequest(requestDetails?._id);
+                            sendEmail(
+                              requestDetails?.passengerId?.email,
+                              requestDetails?.passengerId?.name
+                            );
+                          }}
                           className="cursor-pointer bg-red-500 text-white p-1 text-lg rounded-full hover:bg-red-600 transition-all"
                         >
                           <BsFillTrash3Fill />
@@ -194,8 +195,6 @@ const TheNewReservationRequestsPage = () => {
           </table>
         </div>
       </div>
-
-      <TheFooter />
     </>
   );
 };
