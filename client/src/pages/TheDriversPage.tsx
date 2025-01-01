@@ -88,6 +88,15 @@ const TheDriversPage = () => {
           <h3 className=" text-2xl text-center font-semibold mb-3">
             Available drivers
           </h3>
+
+          <span className="text-center sm:text-left mb-3 block font-semibold text-slate-700">
+            Total available drivers:{" "}
+            <span>
+              {availableDrivers.length > 0
+                ? `0${availableDrivers.length}`
+                : availableDrivers.length}
+            </span>
+          </span>
           {/* <!-- Grid --> */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* <!-- Card --> */}

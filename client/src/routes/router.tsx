@@ -35,14 +35,15 @@ const AppRouter = () => {
 
         <Route path="driver-dashboard" element={<TheDriverDashboardLayout />} />
 
-        <Route path="reservations" element={<TheReservationHistoryPage />} />
-
         <Route element={<TheGuestLayout />}>
           {/* Driver Route */}
           <Route
             path="new-reservation"
             element={<TheNewReservationRequestsPage />}
           />
+
+          {/* Passenger Route */}
+          <Route path="reservations" element={<TheReservationHistoryPage />} />
         </Route>
       </Route>
     </Routes>

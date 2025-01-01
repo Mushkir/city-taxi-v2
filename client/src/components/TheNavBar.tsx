@@ -61,7 +61,7 @@ const TheNavBar = () => {
           {isOpen ? <MdOutlineClose /> : <IoMdMenu />}
         </div>
 
-        <ul className="hidden md:flex gap-5 ">
+        <ul className="hidden md:flex gap-5">
           <li>
             <NavLink to={"/"}>Home</NavLink>
           </li>
@@ -70,21 +70,17 @@ const TheNavBar = () => {
             {currentUser?.role === "passenger" ? (
               <NavLink to={"/drivers"}>Pick a Driver</NavLink>
             ) : currentUser?.role === "driver" ? (
-              <ul className=" flex items-center gap-4">
-                <li>
-                  <NavLink to={"/new-reservation"}>
-                    New Requests
-                    {noOfNewReservationRequest > 0 && (
-                      <sup className="bg-yellow-500 px-1 rounded-full text-black">
-                        {noOfNewReservationRequest}
-                      </sup>
-                    )}
-                  </NavLink>
-                </li>
-              </ul>
+              <NavLink to={"/new-reservation"}>
+                New Requests
+                {noOfNewReservationRequest > 0 && (
+                  <sup className="bg-yellow-500 px-1 rounded-full text-black">
+                    {noOfNewReservationRequest}
+                  </sup>
+                )}
+              </NavLink>
             ) : (
               <li>
-                <Link to={"/"}>About Us</Link>
+                <NavLink to={"/drivers"}>Pick a Driver</NavLink>
               </li>
             )}
           </li>

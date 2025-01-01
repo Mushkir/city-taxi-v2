@@ -51,7 +51,6 @@ const TheReservationHistoryPage = () => {
   return (
     <>
       <TheReactHelmet title="Reservations | City-Taxi" />
-      <TheNavBar />
 
       <div className="wrapper px-10 min-h-screen">
         <div className="">
