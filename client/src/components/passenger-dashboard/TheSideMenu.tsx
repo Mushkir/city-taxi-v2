@@ -198,6 +198,58 @@ const TheSideMenu = () => {
             <span className="">WhatsApp</span>
           </Link>
         </li>
+
+        {/* Instagram */}
+        <li className="flex items-center text-white hover:text-black">
+          <Link
+            to={"https://www.instagram.com/mushkir_9611/"}
+            target="_blank"
+            className="flex items-start gap-2 hover:bg-yellow-500 w-full p-2 hover:rounded-md transition-all"
+          >
+            <svg
+              className=" text-gray-500"
+              xmlns="http://www.w3.org/2000/svg"
+              width="1.5em"
+              height="1.5em"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M8 12a4 4 0 1 1 8 0a4 4 0 0 1-8 0"
+              ></path>
+              <path
+                fill="currentColor"
+                d="M12.05 1c1.827 0 3.266 0 4.42.105c1.178.106 2.156.328 3.03.833A7 7 0 0 1 22.062 4.5c.505.874.727 1.852.833 3.03C23 8.684 23 10.123 23 11.95v.1c0 1.827 0 3.266-.105 4.42c-.106 1.178-.328 2.156-.833 3.03a7 7 0 0 1-2.562 2.562c-.874.505-1.852.727-3.03.833c-1.154.105-2.593.105-4.42.105h-.1c-1.827 0-3.266 0-4.42-.105c-1.178-.106-2.156-.328-3.03-.833A7 7 0 0 1 1.938 19.5c-.505-.874-.727-1.852-.833-3.03C1 15.316 1 13.877 1 12.05v-.1c0-1.827 0-3.266.105-4.42c.106-1.178.328-2.156.833-3.03A7 7 0 0 1 4.5 1.938c.874-.505 1.852-.727 3.03-.833C8.684 1 10.123 1 11.95 1zm6.2 3.75a1 1 0 0 0-1 1v.004a1 1 0 0 0 1 1h.004a1 1 0 0 0 1-1V5.75a1 1 0 0 0-1-1zM12 6a6 6 0 1 0 0 12a6 6 0 0 0 0-12"
+              ></path>
+            </svg>
+
+            <span className="">Instagram</span>
+          </Link>
+        </li>
+
+        {/* Facebook */}
+        <li className="flex items-center text-white hover:text-black">
+          <Link
+            to={"https://www.facebook.com/profile.php?id=100059556802890"}
+            target="_blank"
+            className="flex items-start gap-2 hover:bg-yellow-500 w-full p-2 hover:rounded-md transition-all"
+          >
+            <svg
+              className=" text-gray-500"
+              xmlns="http://www.w3.org/2000/svg"
+              width="1.5em"
+              height="1.5em"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95"
+              ></path>
+            </svg>
+
+            <span className="">Facebook</span>
+          </Link>
+        </li>
       </ul>
     </div>
   );
