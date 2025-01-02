@@ -13,6 +13,8 @@ import TheReservationHistoryPage from "../pages/TheReservationHistoryPage";
 import TheDriverDashboardLayout from "../layouts/TheDriverDashboardLayout";
 import TheNewReservationRequestsPage from "../pages/drivers/TheNewReservationRequestsPage";
 import TheDashboardSummaryPage from "../pages/passenger/TheDashboardSummaryPage";
+import TheTripLogPage from "../pages/passenger/TheTripLogPage";
+import TheProfilePage from "../pages/passenger/TheProfilePage";
 
 const AppRouter = () => {
   return (
@@ -36,7 +38,10 @@ const AppRouter = () => {
           element={<ThePassengerDashboardLayout />}
         >
           <Route path="" element={<TheDashboardSummaryPage />} />
+          <Route path="trip-log" element={<TheTripLogPage />} />
+          <Route path="profile" element={<TheProfilePage />} />
         </Route>
+        {/* End of Passenger profile dashboard route */}
 
         {/* Driver profile dashboard route */}
         <Route path="driver-dashboard" element={<TheDriverDashboardLayout />} />

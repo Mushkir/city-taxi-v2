@@ -13,7 +13,8 @@ nav ul li:hover {
   @apply text-yellow-700 transition-all;
 }
 
-nav ul a.active {
+nav ul a.active,
+ul a.active {
   @apply text-yellow-600 font-semibold;
 }
 
