@@ -62,10 +62,12 @@ const TheNavBar = () => {
         </div>
 
         <ul className="hidden md:flex gap-5">
+          {/* Home */}
           <li>
             <NavLink to={"/"}>Home</NavLink>
           </li>
 
+          {/* Pick a driver / New Requests */}
           <li>
             {currentUser?.role === "passenger" ? (
               <NavLink to={"/drivers"}>Pick a Driver</NavLink>
@@ -98,6 +100,7 @@ const TheNavBar = () => {
             )}
           </li>
 
+          {/* Profile Picture */}
           <li>
             <div className="w-10 h-10">
               {currentUser?.role === "passenger" ? (
@@ -114,6 +117,7 @@ const TheNavBar = () => {
             </div>
           </li>
 
+          {/* Login & Logout button */}
           <li>
             {currentUser?._id ? (
               <button
@@ -131,6 +135,8 @@ const TheNavBar = () => {
               </button>
             )}
           </li>
+
+          {/* Register button */}
           <li>
             {!currentUser?._id && (
               <button
