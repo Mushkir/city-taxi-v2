@@ -126,6 +126,7 @@ const TheSideMenu = () => {
           </NavLink>
         </li>
 
+        {/* Account */}
         <li>
           <NavLink
             to={"profile"}
@@ -144,7 +145,9 @@ const TheSideMenu = () => {
               ></path>
             </svg>
 
-            <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
+            <span className="flex-1 ms-3 whitespace-nowrap">
+              Account Settings
+            </span>
           </NavLink>
         </li>
 
