@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router";
+import handleLogout from "../../utils/logout";
 import apiEndPoint from "../../common/apiEndPoint";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../redux/user/userSlice";
@@ -8,22 +9,24 @@ const TheSideMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch(apiEndPoint.logout.url, {
-        credentials: "include",
-        method: apiEndPoint.logout.method,
-      });
-      const respData = await response.json();
-      if (respData?.status === 200) {
-        dispatch(userLogout());
-        navigate("/");
-      }
-      console.log(respData?.status);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // console.log(typeof navigate);
+
+  // const handleLogout = async () => {
+  //   try {
+  //     const response = await fetch(apiEndPoint.logout.url, {
+  //       credentials: "include",
+  //       method: apiEndPoint.logout.method,
+  //     });
+  //     const respData = await response.json();
+  //     if (respData?.status === 200) {
+  //       dispatch(userLogout());
+  //       navigate("/");
+  //     }
+  //     console.log(respData?.status);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -153,7 +156,7 @@ const TheSideMenu = () => {
 
         <li>
           <div
-            onClick={() => handleLogout()}
+            onClick={async () => handleLogout(dispatch, navigate)}
             className="cursor-pointer flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
           >
             <svg

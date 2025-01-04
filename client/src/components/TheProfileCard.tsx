@@ -1,19 +1,21 @@
 import React, { FunctionComponent, useState } from "react";
 import TheProfileImageView from "./TheProfileImageView";
 import { GoKebabHorizontal } from "react-icons/go";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import handleLogout from "../utils/logout";
+import { useDispatch } from "react-redux";
 
 interface TheProfileCardProps {
   userData: {
-    name: string;
+    name?: string;
     profileImage?: string;
-    role: string;
-    email: string;
-    username: string;
-    phone: string;
-    idCardNo: string;
-    address: string;
-    city: string;
+    role?: string;
+    email?: string;
+    username?: string;
+    phone?: string;
+    idCardNo?: string;
+    address?: string;
+    city?: string;
   } | null;
 }
 
@@ -23,6 +25,9 @@ const TheProfileCard: FunctionComponent<TheProfileCardProps> = ({
   // console.log(userData);
 
   const [openKebabMenu, setOpenKebabMenu] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenMenu = () => {
     setOpenKebabMenu(!openKebabMenu);
@@ -48,7 +53,10 @@ const TheProfileCard: FunctionComponent<TheProfileCardProps> = ({
               <li className="px-5 py-1.5 hover:bg-gray-600 transition-all hover:text-gray-200">
                 <Link to={"/"}>Delete Account</Link>
               </li>
-              <li className="px-5 py-1.5 hover:bg-gray-600 transition-all hover:rounded-b-md cursor-pointer hover:text-gray-200">
+              <li
+                onClick={async () => handleLogout(dispatch, navigate)}
+                className="px-5 py-1.5 hover:bg-gray-600 transition-all hover:rounded-b-md cursor-pointer hover:text-gray-200"
+              >
                 Logout
               </li>
             </ul>
