@@ -73,6 +73,7 @@ const TheSideMenu = () => {
             </span>
           </Link>
         </li>
+
         <li>
           <NavLink
             to={"trip-log"}
@@ -101,6 +102,30 @@ const TheSideMenu = () => {
             <span className="flex-1 ms-3 whitespace-nowrap">Trip Log </span>
           </NavLink>
         </li>
+
+        {/* Payment history */}
+        <li>
+          <NavLink
+            to={"payments"}
+            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          >
+            <svg
+              className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              width="1.5em"
+              height="1.5em"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M3 20q-.825 0-1.412-.587T1 18V8q0-.425.288-.712T2 7t.713.288T3 8v10h16q.425 0 .713.288T20 19t-.288.713T19 20zm4-4q-.825 0-1.412-.587T5 14V6q0-.825.588-1.412T7 4h14q.825 0 1.413.588T23 6v8q0 .825-.587 1.413T21 16zm2-2q0-.825-.587-1.412T7 12v2zm10 0h2v-2q-.825 0-1.412.588T19 14m-5-1q1.25 0 2.125-.875T17 10t-.875-2.125T14 7t-2.125.875T11 10t.875 2.125T14 13M7 8q.825 0 1.413-.587T9 6H7zm14 0V6h-2q0 .825.588 1.413T21 8"
+              ></path>
+            </svg>
+
+            <span className="flex-1 ms-3 whitespace-nowrap">Payments </span>
+          </NavLink>
+        </li>
+
         <li>
           <NavLink
             to={"profile"}
@@ -150,6 +175,7 @@ const TheSideMenu = () => {
         </li>
       </ul>
 
+      {/* Social media links */}
       <ul className="space-y-2 font-medium mt-10">
         {/* GitHub */}
         <li className="flex items-center text-white hover:text-black">

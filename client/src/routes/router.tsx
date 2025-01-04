@@ -15,6 +15,7 @@ import TheNewReservationRequestsPage from "../pages/drivers/TheNewReservationReq
 import TheDashboardSummaryPage from "../pages/passenger/TheDashboardSummaryPage";
 import TheTripLogPage from "../pages/passenger/TheTripLogPage";
 import TheProfilePage from "../pages/passenger/TheProfilePage";
+import ThePaymentHistoryPage from "../pages/passenger/ThePaymentHistoryPage";
 
 const AppRouter = () => {
   return (
@@ -39,6 +40,7 @@ const AppRouter = () => {
         >
           <Route path="" element={<TheDashboardSummaryPage />} />
           <Route path="trip-log" element={<TheTripLogPage />} />
+          <Route path="payments" element={<ThePaymentHistoryPage />} />
           <Route path="profile" element={<TheProfilePage />} />
         </Route>
         {/* End of Passenger profile dashboard route */}
