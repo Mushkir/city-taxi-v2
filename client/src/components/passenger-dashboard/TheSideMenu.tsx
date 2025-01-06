@@ -1,32 +1,11 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import handleLogout from "../../utils/logout";
-import apiEndPoint from "../../common/apiEndPoint";
 import { useDispatch } from "react-redux";
-import { userLogout } from "../../redux/user/userSlice";
 
 const TheSideMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // console.log(typeof navigate);
-
-  // const handleLogout = async () => {
-  //   try {
-  //     const response = await fetch(apiEndPoint.logout.url, {
-  //       credentials: "include",
-  //       method: apiEndPoint.logout.method,
-  //     });
-  //     const respData = await response.json();
-  //     if (respData?.status === 200) {
-  //       dispatch(userLogout());
-  //       navigate("/");
-  //     }
-  //     console.log(respData?.status);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">

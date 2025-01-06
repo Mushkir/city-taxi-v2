@@ -72,7 +72,6 @@ export const Delete = async (req, res) => {
     res
       .status(200)
       .json({ status: 200, message: "Reservation cancelled", error: false });
-    console.log(id);
   } catch (error) {
     res.status(500).json({ error: true, message: error?.message || "Errorr" });
   }

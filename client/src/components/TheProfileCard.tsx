@@ -4,6 +4,7 @@ import { GoKebabHorizontal } from "react-icons/go";
 import { Link, useNavigate } from "react-router";
 import handleLogout from "../utils/logout";
 import { useDispatch } from "react-redux";
+import TheConfirmationPopUp from "./popups/TheConfirmationPopUp";
 
 interface TheProfileCardProps {
   userData: {
@@ -25,12 +26,17 @@ const TheProfileCard: FunctionComponent<TheProfileCardProps> = ({
   // console.log(userData);
 
   const [openKebabMenu, setOpenKebabMenu] = useState(false);
+  const [openWarningModal, setOpenWarningModal] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleOpenMenu = () => {
     setOpenKebabMenu(!openKebabMenu);
+  };
+
+  const closeWarningModal = () => {
+    setOpenWarningModal(false);
   };
 
   return (
@@ -50,8 +56,12 @@ const TheProfileCard: FunctionComponent<TheProfileCardProps> = ({
               <li className="px-5 py-1.5 hover:bg-gray-600 transition-all hover:rounded-t-md cursor-pointer hover:text-gray-200">
                 <Link to={"/"}>Edit</Link>
               </li>
-              <li className="px-5 py-1.5 hover:bg-gray-600 transition-all hover:text-gray-200">
-                <Link to={"/"}>Delete Account</Link>
+              <li
+                onClick={() => setOpenWarningModal(true)}
+                className="px-5 py-1.5 hover:bg-gray-600 transition-all hover:text-gray-200"
+              >
+                {/* <Link to={"/"}>Delete Account</Link> */}
+                Delete Account
               </li>
               <li
                 onClick={async () => handleLogout(dispatch, navigate)}
@@ -108,6 +118,13 @@ const TheProfileCard: FunctionComponent<TheProfileCardProps> = ({
           </div>
         </div>
       </div>
+
+      {openWarningModal && (
+        <TheConfirmationPopUp
+          content="Are you sure to delete your account? This action cannot be undone!"
+          onClose={closeWarningModal}
+        />
+      )}
     </div>
   );
 };

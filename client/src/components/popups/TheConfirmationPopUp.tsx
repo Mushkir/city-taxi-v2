@@ -1,27 +1,49 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { IoWarningOutline, IoCloseSharp } from "react-icons/io5";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import Context from "../../context/context";
 
 interface TheConfirmationPopUpProps {
   content: string;
-  confirmation: string;
-  cancelation: string;
+  confirmation?: string;
+  deleteId?: string | null;
+  cancelation?: string;
+  url: { url: string; method: string };
   onClose: () => void;
 }
 
 const TheConfirmationPopUp: FunctionComponent<TheConfirmationPopUpProps> = ({
   content,
   confirmation,
+  deleteId,
   cancelation,
+  url,
   onClose,
 }) => {
-  const reservationId = useSelector(
-    (state: RootState) => state?.deleteReservation?.reservationId
-  );
+  const { getAllReservationDetails } = useContext(Context);
+  // console.log(context);
 
-  const handleDeleteReservation = (id: string) => {
-    console.log(id);
+  const handleDeleteReservation = async (
+    id: string,
+    url: { url: string; method: string }
+  ) => {
+    try {
+      const response = await fetch(url?.url + `/${id}`, {
+        method: url?.method,
+        credentials: "include",
+      });
+
+      const respData = await response.json();
+      if (respData?.status === 200 && !respData?.error) {
+        onClose();
+      }
+
+      console.log(respData);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // console.log(`Delete Id: ${id}`);
+    // console.log(url?.url);
   };
 
   return (
@@ -52,7 +74,7 @@ const TheConfirmationPopUp: FunctionComponent<TheConfirmationPopUpProps> = ({
 
           <div className="mt-8">
             <button
-              onClick={() => handleDeleteReservation(reservationId)}
+              onClick={() => handleDeleteReservation(deleteId, url)}
               className=" bg-red-500 text-white w-full py-1 rounded-md text-sm hover:bg-red-600 transition-all"
             >
               {confirmation || "Confirm"}

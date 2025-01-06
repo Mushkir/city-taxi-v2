@@ -13,10 +13,11 @@ const TheGuestLayout: FunctionComponent = () => {
   const currentUser = useSelector((state: RootState) => state?.user?.user);
   const dispatch = useDispatch();
 
-  // const [countOfReservations, setCountOfReservations] = useState(0);
   const [countOfReservations, setCountOfReservations] = useState<number>(0);
   const [noOfNewReservationRequest, setNoOfNewReservationRequest] =
     useState<number>(0);
+
+  const [allReservationData, setAllReservationData] = useState([]);
 
   const countReservations = async () => {
     try {
@@ -35,8 +36,6 @@ const TheGuestLayout: FunctionComponent = () => {
       console.error(error);
     }
   };
-
-  // console.log(countOfReservations);
 
   // Get drivers new requests count
   const countNewReservationRequest = async () => {
@@ -64,10 +63,30 @@ const TheGuestLayout: FunctionComponent = () => {
     }
   };
 
+  // Get all reservation details of logged-in passenger
+  const getAllReservationDetails = async () => {
+    try {
+      const response = await fetch(apiEndPoint?.showReservationHistory?.url, {
+        method: apiEndPoint?.showReservationHistory?.method,
+        credentials: "include",
+      });
+
+      const respData = await response.json();
+      if (!respData?.error && respData?.status === 200) {
+        setAllReservationData(respData?.data);
+      }
+      // console.log(respData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // console.log(noOfNewReservationRequest);
+  // console.log(allReservationData);
 
   useEffect(() => {
     countReservations();
+    getAllReservationDetails();
   }, []);
 
   useEffect(() => {
@@ -81,8 +100,10 @@ const TheGuestLayout: FunctionComponent = () => {
           countOfReservations,
           setCountOfReservations,
           countReservations,
+          allReservationData,
           countNewReservationRequest,
           noOfNewReservationRequest,
+          getAllReservationDetails,
         }}
       >
         <TheNavBar />

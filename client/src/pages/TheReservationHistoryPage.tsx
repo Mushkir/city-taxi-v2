@@ -1,21 +1,30 @@
-import React, { useEffect, useState } from "react";
-import TheNavBar from "../components/TheNavBar";
+import React, { useContext, useEffect, useState } from "react";
 import TheReactHelmet from "../components/TheReactHelmet";
 import apiEndPoint from "../common/apiEndPoint";
 import Reservation from "../interface/reservation";
 import { Link } from "react-router";
 import dayjs from "dayjs";
-import TheFooter from "../components/TheFooter";
 import { FaTrashCan } from "react-icons/fa6";
 import TheConfirmationPopUp from "../components/popups/TheConfirmationPopUp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setReservationId } from "../redux/reservation/deleteReservation";
+import { RootState } from "../redux/store";
+// import Context from "../context/context";
 
 const TheReservationHistoryPage = () => {
   const dispatch = useDispatch();
 
+  // ! Get the reservation-id from state to pass to the component
+  const reservationId = useSelector(
+    (state: RootState) => state?.deleteReservation?.reservationId
+  );
+
   const [reservationData, setReservationData] = useState<Reservation[]>([]);
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
+
+  // // const context = useContext(Context);
+  // const context = useContext(Context);
+  // console.log(context);
 
   let no: number = 1; // For serial number in table
 
@@ -37,11 +46,6 @@ const TheReservationHistoryPage = () => {
 
   const onCloseModal = () => {
     setOpenConfirmationModal(false);
-  };
-
-  const handleDeleteReservation = async (id: string) => {
-    dispatch(setReservationId(id));
-    setOpenConfirmationModal(true);
   };
 
   useEffect(() => {
@@ -114,8 +118,12 @@ const TheReservationHistoryPage = () => {
                       </td>
                       <td className="px-6 py-4 text-right">
                         <div
-                          onClick={() =>
-                            handleDeleteReservation(reservation?._id)
+                          onClick={
+                            () => {
+                              dispatch(setReservationId(reservation?._id));
+                              setOpenConfirmationModal(true);
+                            }
+                            // handleDeleteReservation(reservation?._id)
                           }
                           className="hover:-translate-y-1 block transition-all cursor-pointer"
                         >
@@ -136,15 +144,15 @@ const TheReservationHistoryPage = () => {
               content={
                 "Are you sure you want to cancel this reservation. This action cannot be undone."
               }
+              deleteId={reservationId}
               confirmation="Yes! Cancel Reservation"
               cancelation="No"
+              url={apiEndPoint?.deleteReservation}
               onClose={onCloseModal}
             />
           )}
         </div>
       </div>
-
-      <TheFooter />
     </>
   );
 };
